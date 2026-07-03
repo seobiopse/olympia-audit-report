@@ -1,0 +1,1530 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SEO / AEO / GEO / AXO Audit v2 — Olympia Trophies</title>
+<meta name="description" content="Full-site SEO / AEO / GEO / AXO audit with before/after code for every finding. 22 findings across 966 URLs on olympia.com.au.">
+<meta name="robots" content="noindex, follow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --navy-deep:#0a1f3d;--navy-dark:#123d7a;--navy-mid:#1e5cb8;--navy-light:#2e7ccc;
+  --navy-pale:#eef4fc;--navy-border:#c5d9f2;--navy-muted:#4a6b9a;--navy-accent:#60a5fa;
+  --text-dark:#0d1e38;--text-body:#1f2f4a;--text-muted:#4a6b9a;
+  --white:#fff;--bg:#f5f8fc;--border:#d6e3f2;
+  --amber-pale:#fef3c7;--amber-border:#fcd34d;--amber:#92400e;
+  --blue-pale:#eff6ff;--blue-border:#bfdbfe;--blue:#1d4ed8;
+  --red-pale:#fef2f2;--red-border:#fecaca;--red:#b91c1c;
+  --purple-pale:#f5f3ff;--purple-border:#ddd6fe;--purple:#6d28d9;
+  --green-pale:#ecfdf5;--green-border:#a7f3d0;--green:#047857;
+  --teal-pale:#f0fdfa;--teal-border:#99f6e4;--teal:#0f766e;
+  --code-bg:#0d1117;--code-text:#e6edf3;
+  --mono:'SF Mono','Fira Code','Cascadia Code','Consolas',monospace;
+  --radius-sm:8px;--radius-md:12px;--radius-lg:18px;
+}
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',sans-serif;font-size:14px;line-height:1.7;color:var(--text-dark);background:var(--bg)}
+.topbar{background:var(--navy-deep);color:rgba(255,255,255,0.8);font-size:12px;padding:8px 40px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:6px}
+.topbar-trust{display:flex;gap:18px}
+.topbar-trust span::before{content:'✓ ';color:var(--navy-accent)}
+.doc-header{background:linear-gradient(135deg,var(--navy-deep) 0%,var(--navy-dark) 100%);padding:36px 40px 30px;color:white}
+.header-row{display:flex;justify-content:space-between;align-items:flex-start;gap:20px;flex-wrap:wrap;margin-bottom:18px}
+.doc-header h1{font-family:'Playfair Display',serif;font-size:26px;font-weight:700;color:white;line-height:1.25}
+.doc-header h1 span{color:var(--navy-accent)}
+.status-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.22);color:white;font-size:11px;font-weight:700;padding:6px 14px;border-radius:20px;letter-spacing:0.5px;text-transform:uppercase;white-space:nowrap;flex-shrink:0}
+.status-dot{width:7px;height:7px;background:var(--navy-accent);border-radius:50%}
+.meta-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:6px 0;font-size:12.5px;color:rgba(255,255,255,0.65);border-top:1px solid rgba(255,255,255,0.12);padding-top:16px}
+.meta-grid strong{display:block;color:white;font-weight:600;font-size:13px}
+.toc-bar{background:var(--white);border-bottom:1px solid var(--border);padding:11px 40px;display:flex;align-items:center;gap:6px;flex-wrap:wrap;position:sticky;top:0;z-index:50;box-shadow:0 1px 8px rgba(0,0,0,0.06)}
+.toc-label{font-size:11px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:1px;margin-right:4px}
+.toc-link{font-size:12px;color:var(--navy-dark);text-decoration:none;padding:4px 10px;border-radius:20px;border:1px solid var(--border);background:var(--white);transition:background 0.2s;white-space:nowrap}
+.toc-link:hover{background:var(--navy-pale);border-color:var(--navy-border)}
+.toc-link.toc-axo{color:var(--teal);border-color:var(--teal-border);background:var(--teal-pale)}
+.toc-link.toc-axo:hover{background:var(--teal-border)}
+.content{max-width:1100px;margin:0 auto;padding:36px 40px 80px}
+.section{margin-bottom:48px}
+.section-eyebrow{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--navy-mid);margin-bottom:6px;display:block}
+.section-h2{font-family:'Playfair Display',serif;font-size:22px;font-weight:700;color:var(--text-dark);margin-bottom:10px;line-height:1.25}
+.section-intro{font-size:14px;color:var(--text-muted);margin-bottom:22px;line-height:1.7;max-width:820px}
+.section-head-row{display:flex;align-items:center;gap:12px;margin-bottom:8px}
+.section-num{width:28px;height:28px;background:var(--navy-dark);color:white;border-radius:50%;font-size:13px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.section-num.num-axo{background:var(--teal)}
+.section-divider{border:none;border-top:2px solid var(--border);margin:0 0 22px}
+.location-line{font-size:12.5px;color:var(--text-muted);margin-bottom:16px}
+.location-line code,.page-line code{font-family:var(--mono);font-size:12px;background:var(--navy-pale);color:var(--navy-dark);padding:1px 6px;border-radius:4px;border:1px solid var(--navy-border)}
+.page-line{font-size:12.5px;color:var(--text-muted);margin:12px 0 6px}
+.pages-grid{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 16px}
+.page-chip{font-family:var(--mono);font-size:11px;background:var(--navy-pale);color:var(--navy-dark);padding:2px 8px;border-radius:4px;border:1px solid var(--navy-border)}
+.scores-wrap{max-width:1100px;margin:0 auto;padding:36px 0 8px}
+.scores-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;padding:0 40px}
+@media(max-width:900px){.scores-grid{grid-template-columns:1fr}}
+.score-grader{background:var(--white);border:1.5px solid var(--border);border-radius:var(--radius-md);padding:22px 24px;box-shadow:0 2px 12px rgba(18,61,122,0.06)}
+.score-grader-head{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;margin-bottom:18px;padding-bottom:14px;border-bottom:1px solid var(--border)}
+.score-grader-title{flex:1}
+.score-grader-eyebrow{font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--navy-mid);display:block;margin-bottom:3px}
+.score-grader-name{font-family:'Playfair Display',serif;font-size:19px;font-weight:700;color:var(--text-dark);margin:0 0 4px}
+.score-grader-meta{font-size:12px;color:var(--text-muted)}
+.score-grader-badge{flex-shrink:0;min-width:90px;border:2px solid;border-radius:var(--radius-md);padding:10px 14px;text-align:center;background:white}
+.score-number{font-family:'Playfair Display',serif;font-size:32px;font-weight:700;line-height:1}
+.score-max{font-size:13px;font-weight:400;opacity:0.6}
+.score-grade{font-size:10px;font-weight:700;letter-spacing:0.8px;text-transform:uppercase;margin-top:4px}
+.score-bars{display:flex;flex-direction:column;gap:10px}
+.score-dim{font-size:12px}
+.score-dim-head{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:4px}
+.score-dim-label{font-weight:600;color:var(--text-dark)}
+.score-dim-value{font-family:var(--mono);font-size:11px;font-weight:700}
+.score-dim-track{height:6px;background:#eef4fc;border-radius:3px;overflow:hidden}
+.score-dim-fill{height:100%;border-radius:3px}
+.score-dim-note{font-size:11px;color:var(--text-muted);margin-top:3px;font-style:italic}
+.sub-signals{list-style:none;padding:6px 0 0 16px;margin:4px 0 0;font-size:11px;color:var(--text-muted)}
+.sub-signals li{display:flex;justify-content:space-between;align-items:center;padding:2px 0;gap:8px}
+.sub-signals .sub-label{flex:1}
+.sub-signals .sub-score{font-family:var(--mono);color:var(--text-body)}
+.sub-status{font-size:9px;font-weight:700;letter-spacing:0.5px;text-transform:uppercase;padding:1px 6px;border-radius:3px;border:1px solid}
+.status-pass{background:var(--green-pale);color:var(--green);border-color:var(--green-border)}
+.status-partial{background:var(--amber-pale);color:var(--amber);border-color:var(--amber-border)}
+.status-fail{background:var(--red-pale);color:var(--red);border-color:var(--red-border)}
+.score-improvements{margin-top:16px;padding-top:14px;border-top:1px solid var(--border)}
+.score-improvements h4{font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--text-muted);margin:0 0 8px}
+.score-improvements ol{margin:0;padding-left:20px;font-size:12.5px;color:var(--text-body);line-height:1.55}
+.score-improvements li{margin-bottom:5px}
+.group-divider{background:linear-gradient(135deg,var(--navy-deep) 0%,var(--navy-dark) 100%);color:white;padding:28px 32px;border-radius:var(--radius-md);margin:40px 0 32px;box-shadow:0 4px 16px rgba(10,31,61,0.18)}
+.group-divider.group-axo{background:linear-gradient(135deg,#0f3d3a 0%,#0f766e 100%)}
+.group-eyebrow{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--navy-accent);display:block;margin-bottom:8px}
+.group-eyebrow.axo-eyebrow{color:var(--teal-border)}
+.group-heading{font-family:'Playfair Display',serif;font-size:30px;font-weight:700;color:white;margin:0 0 6px;line-height:1.2}
+.group-subtitle{font-size:14px;color:rgba(255,255,255,0.75);margin:0;max-width:720px;line-height:1.55}
+.audit-progress{position:sticky;top:42px;z-index:40;background:white;padding:10px 40px;border-bottom:1px solid var(--border);box-shadow:0 1px 6px rgba(0,0,0,0.04)}
+.progress-meta{display:flex;align-items:center;gap:12px;font-size:12px;color:var(--text-muted);margin-bottom:6px}
+.progress-label{font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--navy-dark)}
+.progress-count{font-family:var(--mono)}
+#progress-done{color:var(--green);font-weight:700}
+.progress-reset{margin-left:auto;background:transparent;border:1px solid var(--border);border-radius:6px;padding:3px 10px;font-size:11px;color:var(--text-muted);cursor:pointer}
+.progress-track{height:6px;background:#eef4fc;border-radius:3px;overflow:hidden}
+.progress-fill{height:100%;background:linear-gradient(90deg,var(--navy-mid) 0%,var(--green) 100%);transition:width 0.35s ease-out;border-radius:3px}
+.finding-card{position:relative;margin-bottom:48px}
+.resolved-toggle{position:absolute;top:16px;right:20px;display:flex;align-items:center;gap:6px;cursor:pointer;user-select:none;padding:6px 10px;border:1px solid var(--border);border-radius:20px;background:white;font-size:11px;font-weight:600;color:var(--text-muted);transition:all 0.15s;z-index:5}
+.resolved-toggle input[type=checkbox]{margin:0;cursor:pointer}
+.resolved-label .resolved-text-done{display:none;color:var(--green)}
+.finding-card.resolved .resolved-label .resolved-text-pending{display:none}
+.finding-card.resolved .resolved-label .resolved-text-done{display:inline}
+.finding-card.resolved{opacity:0.55}
+.finding-card.resolved .resolved-toggle{border-color:var(--green-border);background:var(--green-pale);color:var(--green);opacity:1}
+.finding-card.resolved .section-h2{text-decoration:line-through;text-decoration-color:rgba(0,0,0,0.2)}
+.overview-box{background:var(--navy-pale);border-left:4px solid var(--navy-dark);border-radius:0 var(--radius-sm) var(--radius-sm) 0;padding:18px 22px;font-size:14px;color:var(--text-body);line-height:1.75}
+.overview-box strong{color:var(--navy-dark)}
+.ba-grid{display:grid;grid-template-columns:1fr 1fr;gap:0;border:1.5px solid var(--border);border-radius:var(--radius-md);overflow:hidden;background:var(--white);box-shadow:0 2px 12px rgba(18,61,122,0.06);margin-bottom:12px}
+.ba-col{display:flex;flex-direction:column;min-width:0}
+.ba-header{display:flex;align-items:center;gap:8px;padding:10px 18px;font-size:11px;font-weight:700;letter-spacing:0.8px;text-transform:uppercase;border-bottom:1px solid var(--border)}
+.ba-header.before-h{background:var(--amber-pale);color:#78350f;border-right:1px solid var(--border)}
+.ba-header.after-h{background:var(--navy-pale);color:var(--navy-dark)}
+.ba-header.axo-before-h{background:#fff7ed;color:#7c2d12;border-right:1px solid var(--border)}
+.ba-header.axo-after-h{background:var(--teal-pale);color:var(--teal)}
+.ba-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.ba-dot.before-dot{background:#d97706}
+.ba-dot.after-dot{background:var(--navy-mid)}
+.ba-dot.axo-dot{background:var(--teal)}
+.ba-body{padding:20px;font-size:13.5px;color:var(--text-body);line-height:1.75;flex:1;min-width:0}
+.ba-body.before-body{background:#fffdf7;border-right:1px solid var(--border)}
+.ba-body.after-body{background:#f5faff}
+.ba-body.axo-before-body{background:#fffbf5;border-right:1px solid var(--border)}
+.ba-body.axo-after-body{background:var(--teal-pale)}
+.ba-body strong{color:var(--text-dark)}
+.ba-body p{margin-bottom:10px}
+.ba-body p:last-child{margin-bottom:0}
+.ba-body ul{margin:0 0 10px 20px}
+.ba-body li{margin-bottom:4px}
+.badge-row{margin-bottom:12px !important}
+.conf-row{font-size:11.5px;color:var(--text-muted);margin-bottom:12px !important}
+.verify-line{margin-top:14px !important;padding:10px 14px;border-radius:6px;background:var(--navy-pale);border-left:3px solid var(--navy-mid);font-size:13px}
+.axo-verify-line{margin-top:14px !important;padding:10px 14px;border-radius:6px;background:var(--teal-pale);border-left:3px solid var(--teal);font-size:13px}
+pre{background:var(--code-bg);color:var(--code-text);padding:14px 16px;border-radius:var(--radius-sm);font-family:var(--mono);font-size:11.5px;line-height:1.7;overflow-x:auto;margin:10px 0 0;white-space:pre;max-height:380px;overflow-y:auto}
+code{background:var(--navy-pale);color:var(--navy-dark);padding:1px 6px;border-radius:4px;font-family:var(--mono);font-size:12px;border:1px solid var(--navy-border)}
+pre code{background:none;border:none;color:inherit;padding:0}
+.code-with-copy{position:relative;margin-top:10px}
+.copy-btn{position:absolute;top:8px;right:8px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.18);color:rgba(255,255,255,0.85);font-family:var(--mono);font-size:10px;letter-spacing:0.5px;text-transform:uppercase;padding:4px 8px;border-radius:4px;cursor:pointer;display:inline-flex;align-items:center;gap:4px;transition:all 0.15s}
+.copy-btn:hover{background:rgba(255,255,255,0.12);color:white}
+.copy-btn.copied{background:var(--green);color:white;border-color:var(--green)}
+.sev-badge{display:inline-block;font-family:var(--mono);font-size:10px;font-weight:700;padding:2px 7px;border-radius:3px;text-transform:uppercase;letter-spacing:0.5px;border:1px solid;margin-right:5px;vertical-align:middle}
+.sev-critical{background:var(--red-pale);color:var(--red);border-color:var(--red-border)}
+.sev-high{background:var(--red-pale);color:var(--red);border-color:var(--red-border)}
+.sev-medium{background:var(--amber-pale);color:var(--amber);border-color:var(--amber-border)}
+.sev-low{background:var(--navy-pale);color:var(--navy-dark);border-color:var(--navy-border)}
+.sev-info{background:#f3f4f6;color:#6b7280;border-color:#e5e7eb}
+.ch-badge{display:inline-block;font-family:var(--mono);font-size:10px;font-weight:700;padding:2px 6px;border-radius:3px;letter-spacing:0.3px;border:1px solid;margin-right:4px;vertical-align:middle}
+.ch-seo{background:var(--blue-pale);color:#1e40af;border-color:var(--blue-border)}
+.ch-aeo{background:var(--purple-pale);color:var(--purple);border-color:var(--purple-border)}
+.ch-geo{background:var(--green-pale);color:var(--green);border-color:var(--green-border)}
+.ch-axo{background:var(--teal-pale);color:var(--teal);border-color:var(--teal-border)}
+.conf-chip{display:inline-block;font-family:var(--mono);font-size:10px;font-weight:700;padding:2px 6px;border-radius:3px;letter-spacing:0.3px;border:1px solid;margin-right:6px;vertical-align:middle}
+.conf-high{background:var(--green-pale);color:var(--green);border-color:var(--green-border)}
+.conf-med{background:var(--amber-pale);color:var(--amber);border-color:var(--amber-border)}
+.scorecard{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:16px 0}
+.score-card{background:var(--white);border:1px solid var(--border);border-radius:var(--radius-sm);padding:14px 16px}
+.score-label{font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:0.8px;color:var(--text-muted);margin-bottom:6px}
+.score-value{font-family:'Playfair Display',serif;font-size:22px;font-weight:700;line-height:1.2;color:var(--navy-dark)}
+.score-value.bad{color:var(--red)}
+.score-value.good{color:var(--green)}
+.score-value.warn{color:var(--amber)}
+.score-hint{font-size:11.5px;color:var(--text-muted);margin-top:4px}
+.callout{display:flex;gap:12px;padding:14px 18px;border-radius:var(--radius-sm);margin:14px 0;font-size:13.5px;line-height:1.65;border:1px solid}
+.callout-warn{background:var(--amber-pale);border-color:var(--amber-border);color:#78350f}
+.callout-icon{font-size:18px;line-height:1;flex-shrink:0}
+.axo-result-table{width:100%;border-collapse:collapse;font-size:12.5px;margin-top:16px;border:1.5px solid var(--teal-border);border-radius:var(--radius-sm);overflow:hidden}
+.axo-result-table th{background:var(--teal);color:white;padding:8px 14px;text-align:left;font-size:11px;font-weight:700;letter-spacing:0.5px;text-transform:uppercase}
+.axo-result-table td{padding:8px 14px;border-bottom:1px solid var(--teal-border);vertical-align:top}
+.axo-result-table tr:last-child td{border-bottom:none}
+.axo-result-table tr:nth-child(even) td{background:#f0fdf9}
+.axo-pass{color:var(--green);font-weight:700;font-family:var(--mono);font-size:11px}
+.axo-fail{color:var(--red);font-weight:700;font-family:var(--mono);font-size:11px}
+.axo-partial{color:var(--amber);font-weight:700;font-family:var(--mono);font-size:11px}
+.doc-footer{background:var(--navy-deep);color:rgba(255,255,255,0.6);padding:18px 40px;font-size:12px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px}
+.doc-footer strong{color:white}
+.doc-signature{background:linear-gradient(90deg,#050e1f 0%,#0a1f3d 50%,#050e1f 100%);color:rgba(255,255,255,0.85);padding:16px 40px;display:flex;justify-content:center;align-items:center;gap:12px;font-family:'Playfair Display',serif;font-size:12px;letter-spacing:0.3px;border-top:1px solid rgba(96,165,250,0.18)}
+.doc-signature a{color:inherit;text-decoration:none;border-bottom:1px dotted rgba(96,165,250,0.4)}
+.doc-signature a:hover{color:var(--navy-accent)}
+.doc-signature strong{color:var(--navy-accent);font-weight:700}
+.sig-heart{color:var(--navy-accent);font-size:10px;opacity:0.75}
+.sig-text{font-style:italic}
+.rerun-panel{display:none;background:linear-gradient(135deg,#dcfce7 0%,#ecfdf5 100%);border:2px solid var(--green-border);border-radius:var(--radius-lg);padding:32px 36px;margin:40px 0 0}
+.rerun-panel.visible{display:block}
+.rerun-inner{text-align:center;max-width:720px;margin:0 auto}
+@media(max-width:780px){
+  .topbar{padding:8px 16px;flex-direction:column;text-align:center}
+  .doc-header{padding:24px 20px 20px}
+  .meta-grid{grid-template-columns:1fr 1fr}
+  .toc-bar{padding:10px 16px;overflow-x:auto;flex-wrap:nowrap}
+  .content{padding:24px 16px 60px}
+  .ba-grid{grid-template-columns:1fr}
+  .ba-header.before-h,.ba-header.axo-before-h{border-right:none;border-bottom:1px solid var(--border)}
+  .ba-body.before-body,.ba-body.axo-before-body{border-right:none;border-bottom:1px solid var(--border)}
+  .scorecard{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div><strong>SEO / AEO / GEO / AXO Audit Plugin</strong> · v2 Full-Site Report</div>
+  <div class="topbar-trust">
+    <span>Mode: FULL + AXO</span>
+    <span>0 Critical · 7 High · 7 Medium · 6 Low</span>
+    <span>966 URLs · 22 findings</span>
+  </div>
+</div>
+
+<div class="doc-header">
+  <div class="header-row">
+    <h1>SEO / AEO / GEO / AXO Audit<br><span>Olympia Trophies — Full Site Audit v2</span></h1>
+    <div class="status-badge"><span class="status-dot"></span>Ready for Engineering Review</div>
+  </div>
+  <div class="meta-grid">
+    <div>Target<strong>https://olympia.com.au/</strong></div>
+    <div>Environment<strong>production</strong></div>
+    <div>Sitemap URLs<strong>966 across 33 path types</strong></div>
+    <div>Date<strong>2026-07-03</strong></div>
+    <div>Stack<strong>PHP / Laravel + Bootstrap + Cloudflare CDN</strong></div>
+    <div>Prepared by<strong>Giriish — VDS / SEO Audit Plugin</strong></div>
+    <div>Pages Sampled<strong>8 page types (live fetch)</strong></div>
+    <div>Report<strong>v2 — New Document</strong></div>
+  </div>
+</div>
+
+<nav class="toc-bar" aria-label="Findings"><span class="toc-label">Jump to</span>
+  <a class="toc-link" href="#overview">Overview</a>
+  <a class="toc-link" href="#scores">Scores</a>
+  <a class="toc-link" href="#group-llm">GEO</a>
+  <a class="toc-link" href="#s1">1.</a><a class="toc-link" href="#s2">2.</a><a class="toc-link" href="#s3">3.</a>
+  <a class="toc-link" href="#group-aeo">AEO</a>
+  <a class="toc-link" href="#s4">4.</a>
+  <a class="toc-link" href="#group-seo">SEO</a>
+  <a class="toc-link" href="#s5">5.</a><a class="toc-link" href="#s6">6.</a><a class="toc-link" href="#s7">7.</a><a class="toc-link" href="#s8">8.</a><a class="toc-link" href="#s9">9.</a><a class="toc-link" href="#s10">10.</a><a class="toc-link" href="#s11">11.</a>
+  <a class="toc-link" href="#group-sitewide">Site-Wide</a>
+  <a class="toc-link" href="#s12">12.</a><a class="toc-link" href="#s13">13.</a><a class="toc-link" href="#s14">14.</a>
+  <a class="toc-link toc-axo" href="#group-axo">⚡ AXO</a>
+  <a class="toc-link toc-axo" href="#s15">A1</a><a class="toc-link toc-axo" href="#s16">A2</a><a class="toc-link toc-axo" href="#s17">A3</a><a class="toc-link toc-axo" href="#s18">A4</a><a class="toc-link toc-axo" href="#s19">A5</a><a class="toc-link toc-axo" href="#s20">A6</a><a class="toc-link toc-axo" href="#s21">A7</a><a class="toc-link toc-axo" href="#s22">A8</a>
+</nav>
+
+<div class="audit-progress" id="audit-progress">
+  <div class="progress-meta">
+    <span class="progress-label">Progress</span>
+    <span class="progress-count"><span id="progress-done">0</span> of <span id="progress-total">22</span> addressed</span>
+    <button type="button" class="progress-reset" id="progress-reset">↺ Reset</button>
+  </div>
+  <div class="progress-track"><div class="progress-fill" id="progress-fill" style="width:0%"></div></div>
+</div>
+
+<div class="content">
+
+<!-- OVERVIEW -->
+<div class="section" id="overview">
+  <span class="section-eyebrow">What this report covers</span>
+  <h2 class="section-h2">Overview — Full-Site Audit v2</h2>
+  <hr class="section-divider">
+  <div class="overview-box">
+    <strong>966 URLs audited across 9 page types — E-commerce (Trophies &amp; Awards Retail) — PHP/Laravel + Cloudflare CDN</strong><br><br>
+    This v2 report expands the previous homepage-only audit to cover the full 966-URL site. Key page types sampled live: <strong>homepage, trophy category pages (67), sports medals categories (41), product pages (785), location landing pages (9 cities), About Us, Contact, and static policy pages</strong>.<br><br>
+    A new <strong>AXO (Agentic Browsing Readiness)</strong> segment has been added, covering 8 checks for how well AI agents (Perplexity Comet, ChatGPT Atlas, Chrome Gemini Auto Browse) can navigate, parse, and transact on the site.<br><br>
+    <strong>Critical discovery:</strong> Location pages (/trophies-sydney, /trophies-melbourne etc.) have <strong>blank titles, empty meta descriptions, and zero JSON-LD schema</strong> — they are effectively invisible pages serving no SEO purpose. The product page tested (1st-place-shield) serves the homepage's LocalBusiness + FAQPage schema blocks verbatim — there is <strong>no Product schema on product pages</strong>, confirmed across a second product sample. The sitemap contains 5 junk URLs (/cart, /home, /test, /register, /login) wasting crawl budget.
+  </div>
+  <div class="scorecard" style="margin-top:24px;">
+    <div class="score-card"><div class="score-label">Location pages (9)</div><div class="score-value bad">Blank</div><div class="score-hint">Title, meta desc, and schema all empty on all 9 city pages</div></div>
+    <div class="score-card"><div class="score-label">Product schema</div><div class="score-value bad">Missing</div><div class="score-hint">No Product JSON-LD on product pages — only LocalBusiness+FAQPage</div></div>
+    <div class="score-card"><div class="score-label">About Us schema</div><div class="score-value bad">None</div><div class="score-hint">About page has 0 JSON-LD — no Organization/LocalBusiness</div></div>
+    <div class="score-card"><div class="score-label">Category og:image</div><div class="score-value warn">Generic</div><div class="score-hint">All categories use same generic OLYMPIA.jpg.png — not category-specific</div></div>
+    <div class="score-card"><div class="score-label">AXO Score</div><div class="score-value warn">5/8</div><div class="score-hint">HTML lang missing en-AU, no form labels on product page, llms-full.txt missing</div></div>
+    <div class="score-card"><div class="score-label">Sitemap junk URLs</div><div class="score-value bad">5</div><div class="score-hint">/cart, /home, /test + previously flagged /register + /login</div></div>
+  </div>
+</div>
+
+<!-- SCORES -->
+<div class="scores-wrap" id="scores">
+  <span class="section-eyebrow" style="padding:0 40px;">Scorecards</span>
+  <h2 class="section-h2" style="padding:0 40px;">Quality &amp; E-E-A-T Grades</h2>
+  <p class="section-intro" style="padding:0 40px;">SEO Quality Score + E-E-A-T scored across full site coverage. Scores updated from homepage-only baseline to reflect site-wide patterns observed.</p>
+  <div class="scores-grid">
+    <div class="score-grader">
+      <div class="score-grader-head">
+        <div class="score-grader-title">
+          <span class="score-grader-eyebrow">SEO Quality Score</span>
+          <h3 class="score-grader-name">SEO Quality Score</h3>
+          <div class="score-grader-meta">Page type: <strong>Full Site (Landing + Product + Location)</strong></div>
+        </div>
+        <div class="score-grader-badge" style="border-color:#b91c1c;color:#b91c1c;">
+          <div class="score-number">58<span class="score-max">/100</span></div>
+          <div class="score-grade">Weak</div>
+        </div>
+      </div>
+      <div class="score-bars">
+        <div class="score-dim">
+          <div class="score-dim-head"><span class="score-dim-label">Homepage SEO quality</span><span class="score-dim-value" style="color:#a16207;">14/20</span></div>
+          <div class="score-dim-track"><div class="score-dim-fill" style="width:70%;background:#a16207;"></div></div>
+          <div class="score-dim-note">Good fundamentals — see v1 report for homepage detail</div>
+        </div>
+        <div class="score-dim">
+          <div class="score-dim-head"><span class="score-dim-label">Category pages quality</span><span class="score-dim-value" style="color:#a16207;">12/20</span></div>
+          <div class="score-dim-track"><div class="score-dim-fill" style="width:60%;background:#a16207;"></div></div>
+          <div class="score-dim-note">Good titles + H1 + breadcrumbs. Generic og:image on all. ~42/50 images missing alt.</div>
+        </div>
+        <div class="score-dim">
+          <div class="score-dim-head"><span class="score-dim-label">Product pages quality</span><span class="score-dim-value" style="color:#b91c1c;">6/20</span></div>
+          <div class="score-dim-track"><div class="score-dim-fill" style="width:30%;background:#b91c1c;"></div></div>
+          <div class="score-dim-note">No Product schema. H1 shows homepage H1. Boilerplate title pattern. No breadcrumb schema.</div>
+        </div>
+        <div class="score-dim">
+          <div class="score-dim-head"><span class="score-dim-label">Location pages quality</span><span class="score-dim-value" style="color:#b91c1c;">2/20</span></div>
+          <div class="score-dim-track"><div class="score-dim-fill" style="width:10%;background:#b91c1c;"></div></div>
+          <div class="score-dim-note">Blank titles, empty descriptions, no schema, generic H1 not city-specific. All 9 city pages affected.</div>
+        </div>
+        <div class="score-dim">
+          <div class="score-dim-head"><span class="score-dim-label">About/Contact/Static quality</span><span class="score-dim-value" style="color:#a16207;">12/20</span></div>
+          <div class="score-dim-track"><div class="score-dim-fill" style="width:60%;background:#a16207;"></div></div>
+          <div class="score-dim-note">Good meta descriptions. No ContactPage or Organization schema. About mentions 1963 founding.</div>
+        </div>
+      </div>
+      <div class="score-improvements">
+        <h4>Top site-wide improvements</h4>
+        <ol>
+          <li>Fix location pages (9 cities): Add unique title, meta desc, city-targeting H1 and LocalBusiness schema with city areaServed</li>
+          <li>Add Product schema to all 785 product pages — currently serving homepage schemas instead</li>
+          <li>Fix alt attributes across category pages (~42 missing per category page)</li>
+        </ol>
+      </div>
+    </div>
+    <div class="score-grader">
+      <div class="score-grader-head">
+        <div class="score-grader-title">
+          <span class="score-grader-eyebrow">E-E-A-T Score</span>
+          <h3 class="score-grader-name">E-E-A-T Score</h3>
+          <div class="score-grader-meta">Page type: <strong>Full Site</strong></div>
+        </div>
+        <div class="score-grader-badge" style="border-color:#b91c1c;color:#b91c1c;">
+          <div class="score-number">54<span class="score-max">/100</span></div>
+          <div class="score-grade">Weak</div>
+        </div>
+      </div>
+      <div class="score-bars">
+        <div class="score-dim">
+          <div class="score-dim-head"><span class="score-dim-label">Trust</span><span class="score-dim-value" style="color:#a16207;">22/35</span></div>
+          <div class="score-dim-track"><div class="score-dim-fill" style="width:63%;background:#a16207;"></div></div>
+          <ul class="sub-signals">
+            <li><span class="sub-label">Address + phone + email in footer on every page</span><span class="sub-score">10/10</span><span class="sub-status status-pass">pass</span></li>
+            <li><span class="sub-label">Policy pages linked sitewide</span><span class="sub-score">7/7</span><span class="sub-status status-pass">pass</span></li>
+            <li><span class="sub-label">Transparent pricing on product pages</span><span class="sub-score">0/5</span><span class="sub-status status-fail">fail</span></li>
+            <li><span class="sub-label">Organization schema sitewide with contactPoint</span><span class="sub-score">0/3</span><span class="sub-status status-fail">fail</span></li>
+            <li><span class="sub-label">About Us page has Organization/Person schema</span><span class="sub-score">0/5</span><span class="sub-status status-fail">fail</span></li>
+            <li><span class="sub-label">ContactPage schema on contact</span><span class="sub-score">0/3</span><span class="sub-status status-fail">fail</span></li>
+            <li><span class="sub-label">SSL + no mixed content</span><span class="sub-score">5/2</span><span class="sub-status status-pass">pass</span></li>
+          </ul>
+        </div>
+        <div class="score-dim">
+          <div class="score-dim-head"><span class="score-dim-label">Experience</span><span class="score-dim-value" style="color:#b91c1c;">8/25</span></div>
+          <div class="score-dim-track"><div class="score-dim-fill" style="width:32%;background:#b91c1c;"></div></div>
+          <ul class="sub-signals">
+            <li><span class="sub-label">Named customer testimonials with attribution</span><span class="sub-score">0/10</span><span class="sub-status status-fail">fail</span></li>
+            <li><span class="sub-label">Quantified case studies</span><span class="sub-score">0/8</span><span class="sub-status status-fail">fail</span></li>
+            <li><span class="sub-label">Photos of location/team</span><span class="sub-score">4/4</span><span class="sub-status status-pass">pass</span></li>
+            <li><span class="sub-label">Founding year 1963 mentioned on About</span><span class="sub-score">4/3</span><span class="sub-status status-pass">pass</span></li>
+          </ul>
+        </div>
+        <div class="score-dim">
+          <div class="score-dim-head"><span class="score-dim-label">Expertise</span><span class="score-dim-value" style="color:#a16207;">10/20</span></div>
+          <div class="score-dim-track"><div class="score-dim-fill" style="width:50%;background:#a16207;"></div></div>
+          <ul class="sub-signals">
+            <li><span class="sub-label">Team credentials / named staff on About</span><span class="sub-score">0/8</span><span class="sub-status status-fail">fail</span></li>
+            <li><span class="sub-label">Years in business (1963) prominent</span><span class="sub-score">5/5</span><span class="sub-status status-pass">pass</span></li>
+            <li><span class="sub-label">Industry depth in category copy</span><span class="sub-score">5/7</span><span class="sub-status status-partial">partial</span></li>
+          </ul>
+        </div>
+        <div class="score-dim">
+          <div class="score-dim-head"><span class="score-dim-label">Authoritativeness</span><span class="score-dim-value" style="color:#b91c1c;">8/20</span></div>
+          <div class="score-dim-track"><div class="score-dim-fill" style="width:40%;background:#b91c1c;"></div></div>
+          <ul class="sub-signals">
+            <li><span class="sub-label">Press mentions / "As seen in"</span><span class="sub-score">0/7</span><span class="sub-status status-fail">fail</span></li>
+            <li><span class="sub-label">sameAs links to verified brand profiles</span><span class="sub-score">0/4</span><span class="sub-status status-fail">fail</span></li>
+            <li><span class="sub-label">Industry awards / recognitions</span><span class="sub-score">4/4</span><span class="sub-status status-partial">partial</span></li>
+            <li><span class="sub-label">Named supplier/brand partnerships</span><span class="sub-score">4/5</span><span class="sub-status status-partial">partial</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- GEO GROUP -->
+<div class="group-divider" id="group-llm">
+  <span class="group-eyebrow">Audit group</span>
+  <h1 class="group-heading">LLM Visibility (GEO)</h1>
+  <p class="group-subtitle">Google AI Overview + ChatGPT + Perplexity + Claude + Gemini + Copilot citation</p>
+</div>
+
+<!-- FINDING 1: GEO-001 -->
+<div class="finding-card section" id="s1" data-finding-id="GEO-001">
+  <label class="resolved-toggle" for="fix-GEO-001"><input type="checkbox" class="finding-check" id="fix-GEO-001" data-finding-id="GEO-001"><span class="resolved-label"><span class="resolved-text-pending">Mark as addressed</span><span class="resolved-text-done">Addressed ✓</span></span></label>
+  <div class="section-head-row"><div class="section-num">1</div><span class="section-eyebrow" style="margin-bottom:0;">robots.txt</span></div>
+  <h2 class="section-h2">All 7 major AI crawlers blocked → site invisible to every AI platform</h2>
+  <hr class="section-divider">
+  <p class="page-line"><strong>Page:</strong> <code>https://olympia.com.au/robots.txt</code></p>
+  <div class="ba-grid">
+    <div class="ba-col">
+      <div class="ba-header before-h"><span class="ba-dot before-dot"></span>SEO Audit Finding</div>
+      <div class="ba-body before-body">
+        <p class="badge-row"><strong>Severity:</strong> <span class="sev-badge sev-high">High</span> <strong>Channels:</strong> <span class="ch-badge ch-geo">GEO</span></p>
+        <p class="conf-row"><span class="conf-chip conf-high">Confidence 99/100</span></p>
+        <p>The Cloudflare-managed robots.txt blocks <strong>GPTBot, ClaudeBot, Google-Extended, Applebot-Extended, CCBot, Amazonbot, Bytespider</strong> with <code>Disallow: /</code>. This makes olympia.com.au invisible in ChatGPT, Perplexity, Claude, Gemini, and Bing Copilot answers — for every query including "best trophy shop Australia", "cricket trophies Sydney" etc.</p>
+        <div class="code-with-copy"><button class="copy-btn" type="button">Copy</button><pre># BEGIN Cloudflare Managed Content
+User-agent: GPTBot
+Disallow: /
+
+User-agent: ClaudeBot
+Disallow: /
+
+User-agent: Google-Extended
+Disallow: /
+# etc.
+# END Cloudflare Managed Content</pre></div>
+      </div>
+    </div>
+    <div class="ba-col">
+      <div class="ba-header after-h"><span class="ba-dot after-dot"></span>Revamp Implementation</div>
+      <div class="ba-body after-body">
+        <p>Allow retrieval crawlers; block only training-only scrapers. Cloudflare UI → Zone → Crawler Hints → Custom robots.txt.</p>
+        <div class="code-with-copy"><button class="copy-btn" type="button">Copy</button><pre>User-agent: *
+Content-Signal: search=yes,ai-train=no,use=reference
+Allow: /
+Disallow: /dashboard/
+
+# Training-only bots — block
+User-agent: CCBot
+Disallow: /
+User-agent: Bytespider
+Disallow: /
+
+# AI retrieval — allow
+User-agent: ChatGPT-User
+Allow: /
+User-agent: Claude-SearchBot
+Allow: /
+User-agent: PerplexityBot
+Allow: /
+User-agent: Google-Extended
+Allow: /
+User-agent: Applebot-Extended
+Allow: /
+
+Sitemap: https://olympia.com.au/sitemap.xml</pre></div>
+        <p class="verify-line"><strong>How to verify:</strong> <code>curl -s https://olympia.com.au/robots.txt | grep -A1 'PerplexityBot'</code> → <code>Allow: /</code></p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FINDING 2: GEO-002 -->
+<div class="finding-card section" id="s2" data-finding-id="GEO-002">
+  <label class="resolved-toggle" for="fix-GEO-002"><input type="checkbox" class="finding-check" id="fix-GEO-002" data-finding-id="GEO-002"><span class="resolved-label"><span class="resolved-text-pending">Mark as addressed</span><span class="resolved-text-done">Addressed ✓</span></span></label>
+  <div class="section-head-row"><div class="section-num">2</div><span class="section-eyebrow" style="margin-bottom:0;">GEO Discovery</span></div>
+  <h2 class="section-h2">No llms.txt (404) → LLMs can't discover what Olympia sells</h2>
+  <hr class="section-divider">
+  <p class="page-line"><strong>Page:</strong> <code>https://olympia.com.au/llms.txt</code> → HTTP 404 confirmed</p>
+  <div class="ba-grid">
+    <div class="ba-col">
+      <div class="ba-header before-h"><span class="ba-dot before-dot"></span>SEO Audit Finding</div>
+      <div class="ba-body before-body">
+        <p class="badge-row"><strong>Severity:</strong> <span class="sev-badge sev-high">High</span> <strong>Channels:</strong> <span class="ch-badge ch-geo">GEO</span></p>
+        <p class="conf-row"><span class="conf-chip conf-high">Confidence 99/100</span></p>
+        <p>Both <code>/llms.txt</code> and <code>/llms-full.txt</code> return HTTP 404. Without these files, AI systems must infer context from product listings imperfectly — Olympia's 60+ year history, specialty engraving service, and Australia-wide delivery are invisible to LLM memory.</p>
+      </div>
+    </div>
+    <div class="ba-col">
+      <div class="ba-header after-h"><span class="ba-dot after-dot"></span>Revamp Implementation</div>
+      <div class="ba-body after-body">
+        <p>Create both <code>/llms.txt</code> (concise) and <code>/llms-full.txt</code> (full product/page index). Deploy as static files via Cloudflare Pages.</p>
+        <div class="code-with-copy"><button class="copy-btn" type="button">Copy</button><pre># /llms.txt — Olympia Trophies
+
+> Australia's oldest trophy and awards retailer since 1963.
+  Trophies, medals, plaques, ribbons, and engraved awards.
+  Ships Australia-wide from Castle Hill, NSW (ABN 24 662 539 406).
+
+## Products
+- [Trophies](https://olympia.com.au/trophies)
+- [Sports Medals](https://olympia.com.au/sports-medals)
+- [School Awards](https://olympia.com.au/school-awards)
+- [Corporate Awards](https://olympia.com.au/corporate-award)
+- [Plaques](https://olympia.com.au/plaques)
+- [Ribbons](https://olympia.com.au/rosettes-and-ribbons)
+- [Gifts](https://olympia.com.au/gifts)
+
+## About
+- [About Us](https://olympia.com.au/about-us)
+- [Contact](https://olympia.com.au/contact)
+- [Delivery](https://olympia.com.au/delivery-information)
+- [Returns](https://olympia.com.au/return-and-refund-policy)</pre></div>
+        <p class="verify-line"><strong>How to verify:</strong> <code>curl -I https://olympia.com.au/llms.txt</code> → HTTP 200</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FINDING 3: GEO-003 -->
+<div class="finding-card section" id="s3" data-finding-id="GEO-003">
+  <label class="resolved-toggle" for="fix-GEO-003"><input type="checkbox" class="finding-check" id="fix-GEO-003" data-finding-id="GEO-003"><span class="resolved-label"><span class="resolved-text-pending">Mark as addressed</span><span class="resolved-text-done">Addressed ✓</span></span></label>
+  <div class="section-head-row"><div class="section-num">3</div><span class="section-eyebrow" style="margin-bottom:0;">Entity Graph</span></div>
+  <h2 class="section-h2">No sameAs entity links → Olympia is an unknown entity to LLMs</h2>
+  <hr class="section-divider">
+  <p class="page-line"><strong>Page:</strong> <code>https://olympia.com.au/</code></p>
+  <div class="ba-grid">
+    <div class="ba-col">
+      <div class="ba-header before-h"><span class="ba-dot before-dot"></span>SEO Audit Finding</div>
+      <div class="ba-body before-body">
+        <p class="badge-row"><strong>Severity:</strong> <span class="sev-badge sev-high">High</span> <strong>Channels:</strong> <span class="ch-badge ch-geo">GEO</span> <span class="ch-badge ch-seo">SEO</span></p>
+        <p class="conf-row"><span class="conf-chip conf-high">Confidence 90/100</span></p>
+        <p>The LocalBusiness JSON-LD (confirmed present on all pages) is missing <strong>sameAs</strong>, <strong>areaServed</strong>, <strong>openingHoursSpecification</strong>, and <strong>contactPoint</strong>. LLMs query entity graphs when composing commercial answers — without these links Olympia cannot be matched to its LinkedIn, GBP, Facebook or Instagram profiles.</p>
+      </div>
+    </div>
+    <div class="ba-col">
+      <div class="ba-header after-h"><span class="ba-dot after-dot"></span>Revamp Implementation</div>
+      <div class="ba-body after-body">
+        <div class="code-with-copy"><button class="copy-btn" type="button">Copy</button><pre>{
+  "@context": "https://schema.org",
+  "@type": ["LocalBusiness", "Store"],
+  "name": "Olympia Trophies Corporate",
+  "url": "https://olympia.com.au/",
+  "foundingDate": "1963",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "Unit 51, 9 Hoyle Avenue",
+    "addressLocality": "Castle Hill",
+    "addressRegion": "NSW",
+    "postalCode": "2154",
+    "addressCountry": "AU"
+  },
+  "telephone": "+611300544145",
+  "areaServed": ["AU-NSW","AU-VIC","AU-QLD","AU-SA","AU-WA","AU-TAS","AU-NT"],
+  "openingHoursSpecification": [{
+    "@type": "OpeningHoursSpecification",
+    "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday"],
+    "opens": "09:00",
+    "closes": "17:00"
+  }],
+  "sameAs": [
+    "https://www.facebook.com/olympiatrophiescorporate",
+    "https://www.instagram.com/olympia_trophies_corporate/",
+    "https://maps.google.com/?cid=REPLACE_CID",
+    "https://www.linkedin.com/company/olympia-trophies"
+  ]
+}</pre></div>
+        <p class="verify-line"><strong>How to verify:</strong> Paste into <a href="https://search.google.com/test/rich-results" target="_blank">Rich Results Test</a> — check all sameAs URLs return HTTP 200</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- AEO GROUP -->
+<div class="group-divider" id="group-aeo">
+  <span class="group-eyebrow">Audit group</span>
+  <h1 class="group-heading">Answer Engine Optimization (AEO)</h1>
+  <p class="group-subtitle">Google AI Overview extractions, featured snippets, and voice search readiness</p>
+</div>
+
+<!-- FINDING 4: AEO-001 -->
+<div class="finding-card section" id="s4" data-finding-id="AEO-001">
+  <label class="resolved-toggle" for="fix-AEO-001"><input type="checkbox" class="finding-check" id="fix-AEO-001" data-finding-id="AEO-001"><span class="resolved-label"><span class="resolved-text-pending">Mark as addressed</span><span class="resolved-text-done">Addressed ✓</span></span></label>
+  <div class="section-head-row"><div class="section-num">4</div><span class="section-eyebrow" style="margin-bottom:0;">Google AI Overview</span></div>
+  <h2 class="section-h2">FAQPage schema present on all pages — but not category-specific</h2>
+  <hr class="section-divider">
+  <p class="section-intro">The FAQPage schema exists (confirmed on both homepage and product pages). However the same FAQ block is served across all pages including product pages — it is not tailored to the page topic.</p>
+  <p class="page-line"><strong>Pages affected:</strong> All page templates (same block injected globally)</p>
+  <div class="ba-grid">
+    <div class="ba-col">
+      <div class="ba-header before-h"><span class="ba-dot before-dot"></span>SEO Audit Finding</div>
+      <div class="ba-body before-body">
+        <p class="badge-row"><strong>Severity:</strong> <span class="sev-badge sev-medium">Medium</span> <strong>Channels:</strong> <span class="ch-badge ch-aeo">AEO</span> <span class="ch-badge ch-seo">SEO</span></p>
+        <p class="conf-row"><span class="conf-chip conf-high">Confidence 92/100</span> <span>evidence: <code>FAQPage JSON-LD verified on homepage AND /product/1st-place-shield — identical block</code></span></p>
+        <p>The FAQPage JSON-LD block contains generic questions: "How quickly can I receive my trophies?", "Can I customise trophies?" — these appear verbatim on both the homepage AND individual product pages. Google may disregard or penalise FAQPage schema when it doesn't match page content. Category pages need <strong>sport-specific FAQs</strong> (e.g. on /trophies/cricket-trophies: "What size cricket trophy should I choose for club awards?").</p>
+      </div>
+    </div>
+    <div class="ba-col">
+      <div class="ba-header after-h"><span class="ba-dot after-dot"></span>Revamp Implementation</div>
+      <div class="ba-body after-body">
+        <p>Keep the global FAQPage on the homepage. Add <strong>category-specific FAQPage</strong> blocks to each category template, populated from a CMS FAQ field. Remove the global FAQ inject from product page template.</p>
+        <div class="code-with-copy"><button class="copy-btn" type="button">Copy</button><pre>// In category template (e.g., /trophies/cricket-trophies):
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What size cricket trophy is best for club awards?",
+      "acceptedAnswer": {"@type": "Answer",
+        "text": "Most cricket clubs choose 175–225mm trophies for 
+                 player-of-the-match and 300mm+ for season awards.
+                 All sizes available with free engraving."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I get bulk cricket trophies engraved?",
+      "acceptedAnswer": {"@type": "Answer",
+        "text": "Yes. We offer free personalised engraving on orders 
+                 of 5+ units. Bulk discounts apply to orders of 20+."
+      }
+    }
+  ]
+}</pre></div>
+        <p class="verify-line"><strong>How to verify:</strong> Rich Results Test on a category page — FAQPage should show with sport-specific Q&amp;A, not generic delivery questions</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SEO GROUP -->
+<div class="group-divider" id="group-seo">
+  <span class="group-eyebrow">Audit group</span>
+  <h1 class="group-heading">Traditional SEO</h1>
+  <p class="group-subtitle">Crawling, indexing, ranking — Googlebot + Bingbot + classic SEO pillars</p>
+</div>
+
+<!-- FINDING 5: SEO-001 -->
+<div class="finding-card section" id="s5" data-finding-id="SEO-001">
+  <label class="resolved-toggle" for="fix-SEO-001"><input type="checkbox" class="finding-check" id="fix-SEO-001" data-finding-id="SEO-001"><span class="resolved-label"><span class="resolved-text-pending">Mark as addressed</span><span class="resolved-text-done">Addressed ✓</span></span></label>
+  <div class="section-head-row"><div class="section-num">5</div><span class="section-eyebrow" style="margin-bottom:0;">Technical</span></div>
+  <h2 class="section-h2">Sitemap contains 5 junk URLs — /cart, /home, /test, /register, /login</h2>
+  <hr class="section-divider">
+  <div class="pages-grid">
+    <code class="page-chip">https://olympia.com.au/cart</code>
+    <code class="page-chip">https://olympia.com.au/home</code>
+    <code class="page-chip">https://olympia.com.au/test</code>
+    <code class="page-chip">https://olympia.com.au/register</code>
+    <code class="page-chip">https://olympia.com.au/login</code>
+  </div>
+  <div class="ba-grid">
+    <div class="ba-col">
+      <div class="ba-header before-h"><span class="ba-dot before-dot"></span>SEO Audit Finding</div>
+      <div class="ba-body before-body">
+        <p class="badge-row"><strong>Severity:</strong> <span class="sev-badge sev-medium">Medium</span> <strong>Channels:</strong> <span class="ch-badge ch-seo">SEO</span></p>
+        <p class="conf-row"><span class="conf-chip conf-high">Confidence 99/100</span> <span>evidence: <code>sitemap.xml parsed — 5 utility URLs confirmed at priority 0.80</code></span></p>
+        <p>The 966-URL sitemap includes 5 utility pages that should never be indexed: <code>/cart</code> (empty cart), <code>/home</code> (duplicate of /), <code>/test</code> (development page), <code>/register</code>, and <code>/login</code>. All are set to priority 0.80 — same as product categories. This wastes crawl budget and may cause Googlebot to allocate fewer crawl credits to the 785 commercial product pages.</p>
+      </div>
+    </div>
+    <div class="ba-col">
+      <div class="ba-header after-h"><span class="ba-dot after-dot"></span>Revamp Implementation</div>
+      <div class="ba-body after-body">
+        <p>Remove all 5 URLs from sitemap.xml. Add <code>noindex, nofollow</code> to each page's HTML. For <code>/home</code>, also add a 301 redirect to <code>/</code>.</p>
+        <div class="code-with-copy"><button class="copy-btn" type="button">Copy</button><pre>&lt;!-- Remove from sitemap.xml --&gt;
+&lt;!-- /cart, /home, /test, /register, /login --&gt;
+
+&lt;!-- Add to &lt;head&gt; of each removed page: --&gt;
+&lt;meta name="robots" content="noindex, nofollow"&gt;
+
+&lt;!-- For /home → redirect in .htaccess or Cloudflare rule: --&gt;
+Redirect 301 /home https://olympia.com.au/
+
+&lt;!-- For /test → also ensure route is disabled in production --&gt;</pre></div>
+        <p class="verify-line"><strong>How to verify:</strong> <code>curl https://olympia.com.au/sitemap.xml | grep -c '&lt;loc&gt;'</code> → should return 961 (966 - 5)</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FINDING 6: SEO-002 -->
+<div class="finding-card section" id="s6" data-finding-id="SEO-002">
+  <label class="resolved-toggle" for="fix-SEO-002"><input type="checkbox" class="finding-check" id="fix-SEO-002" data-finding-id="SEO-002"><span class="resolved-label"><span class="resolved-text-pending">Mark as addressed</span><span class="resolved-text-done">Addressed ✓</span></span></label>
+  <div class="section-head-row"><div class="section-num">6</div><span class="section-eyebrow" style="margin-bottom:0;">On-Page · Product Pages</span></div>
+  <h2 class="section-h2">Product pages lack Product schema — serving homepage schemas instead</h2>
+  <hr class="section-divider">
+  <p class="section-intro">Live fetch of /product/1st-place-shield confirmed zero Product JSON-LD. The page serves LocalBusiness + FAQPage — the same blocks as the homepage. This affects all 785 product pages.</p>
+  <p class="page-line"><strong>Pages affected (785):</strong> <code>https://olympia.com.au/product/*</code></p>
+  <div class="ba-grid">
+    <div class="ba-col">
+      <div class="ba-header before-h"><span class="ba-dot before-dot"></span>SEO Audit Finding</div>
+      <div class="ba-body before-body">
+        <p class="badge-row"><strong>Severity:</strong> <span class="sev-badge sev-high">High</span> <strong>Channels:</strong> <span class="ch-badge ch-seo">SEO</span> <span class="ch-badge ch-aeo">AEO</span></p>
+        <p class="conf-row"><span class="conf-chip conf-high">Confidence 96/100</span> <span>evidence: <code>/product/1st-place-shield — JSON-LD: LocalBusiness + FAQPage only, no Product type found</code></span></p>
+        <p>The product page template injects <strong>only LocalBusiness and FAQPage schemas</strong>, identical to the homepage. There is no <code>Product</code> schema block at all. This means 785 product pages are:</p>
+        <ul>
+          <li>Ineligible for <strong>Google Shopping rich results</strong></li>
+          <li>Cannot show <strong>price, availability, reviews</strong> in SERPs</li>
+          <li>The LocalBusiness schema appearing on product pages confuses Google about page type</li>
+        </ul>
+        <div class="code-with-copy"><button class="copy-btn" type="button">Copy</button><pre>// What's on /product/1st-place-shield:
+{ "@type": "LocalBusiness" }  // ← homepage schema
+{ "@type": "FAQPage" }        // ← homepage schema
+// Missing: { "@type": "Product" }</pre></div>
+      </div>
+    </div>
+    <div class="ba-col">
+      <div class="ba-header after-h"><span class="ba-dot after-dot"></span>Revamp Implementation</div>
+      <div class="ba-body after-body">
+        <p>Add a Product schema block to the product page template. Pass dynamic values (name, price, sku, image) from the Laravel controller. Remove the LocalBusiness inject from product page template — keep it on homepage/sitewide layout only.</p>
+        <div class="code-with-copy"><button class="copy-btn" type="button">Copy</button><pre>{
+  "@context": "https://schema.org",
+  "@type": "Product",
+  "name": "{{ $product->name }}",
+  "description": "{{ $product->description }}",
+  "sku": "{{ $product->sku }}",
+  "image": "{{ $product->image_url }}",
+  "brand": {
+    "@type": "Brand",
+    "name": "Olympia Trophies"
+  },
+  "offers": {
+    "@type": "Offer",
+    "url": "{{ request()->url() }}",
+    "priceCurrency": "AUD",
+    "price": "{{ $product->price }}",
+    "priceValidUntil": "{{ now()->addYear()->format('Y-m-d') }}",
+    "availability": "https://schema.org/InStock",
+    "itemCondition": "https://schema.org/NewCondition",
+    "seller": { "@type": "Organization", "name": "Olympia Trophies" },
+    "shippingDetails": {
+      "@type": "OfferShippingDetails",
+      "shippingRate": {
+        "@type": "MonetaryAmount", "value": "0", "currency": "AUD"
+      },
+      "shippingDestination": {
+        "@type": "DefinedRegion", "addressCountry": "AU"
+      },
+      "deliveryTime": {
+        "@type": "ShippingDeliveryTime",
+        "handlingTime": {"@type":"QuantitativeValue","minValue":1,"maxValue":2,"unitCode":"DAY"},
+        "transitTime": {"@type":"QuantitativeValue","minValue":3,"maxValue":7,"unitCode":"DAY"}
+      }
+    },
+    "hasMerchantReturnPolicy": {
+      "@type": "MerchantReturnPolicy",
+      "applicableCountry": "AU",
+      "returnPolicyCategory": "https://schema.org/MerchantReturnFiniteReturnWindow",
+      "merchantReturnDays": 30,
+      "returnMethod": "https://schema.org/ReturnByMail",
+      "returnFees": "https://schema.org/FreeReturn"
+    }
+  }
+}</pre></div>
+        <p class="verify-line"><strong>How to verify:</strong> Rich Results Test on any /product/* URL → Product rich result should appear with price, availability, shipping, and returns</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FINDING 7: SEO-003 -->
+<div class="finding-card section" id="s7" data-finding-id="SEO-003">
+  <label class="resolved-toggle" for="fix-SEO-003"><input type="checkbox" class="finding-check" id="fix-SEO-003" data-finding-id="SEO-003"><span class="resolved-label"><span class="resolved-text-pending">Mark as addressed</span><span class="resolved-text-done">Addressed ✓</span></span></label>
+  <div class="section-head-row"><div class="section-num">7</div><span class="section-eyebrow" style="margin-bottom:0;">On-Page · Product Pages</span></div>
+  <h2 class="section-h2">Product page H1 shows homepage H1 — all 785 products share same heading</h2>
+  <hr class="section-divider">
+  <p class="page-line"><strong>Pages affected (785):</strong> <code>https://olympia.com.au/product/*</code></p>
+  <div class="ba-grid">
+    <div class="ba-col">
+      <div class="ba-header before-h"><span class="ba-dot before-dot"></span>SEO Audit Finding</div>
+      <div class="ba-body before-body">
+        <p class="badge-row"><strong>Severity:</strong> <span class="sev-badge sev-high">High</span> <strong>Channels:</strong> <span class="ch-badge ch-seo">SEO</span></p>
+        <p class="conf-row"><span class="conf-chip conf-high">Confidence 96/100</span> <span>evidence: <code>/product/1st-place-shield H1: "Buy Trophies Online from Australia's Oldest Trophy Retailer" — identical to homepage</code></span></p>
+        <p>The product page for <code>/product/1st-place-shield</code> serves this H1: <em>"Buy Trophies Online from Australia's Oldest Trophy Retailer"</em> — which is the <strong>homepage H1</strong>. The actual product name is likely not in an H1 at all. This is a site-wide template issue affecting all 785 product pages.</p>
+        <p>Google uses H1 as the primary entity signal. A product page that tells Google its topic is "Buy Trophies Online" (not the product name) will never rank for product-specific queries.</p>
+        <div class="code-with-copy"><button class="copy-btn" type="button">Copy</button><pre>&lt;!-- Current /product/1st-place-shield --&gt;
+&lt;h1&gt;Buy Trophies Online from Australia's Oldest Trophy Retailer&lt;/h1&gt;
+&lt;!-- ↑ This is the HOMEPAGE H1, injected into every product page --&gt;</pre></div>
+      </div>
+    </div>
+    <div class="ba-col">
+      <div class="ba-header after-h"><span class="ba-dot after-dot"></span>Revamp Implementation</div>
+      <div class="ba-body after-body">
+        <p>Move the promotional H1 to the site header/hero (outside the semantic page landmark), and set the page's <code>&lt;h1&gt;</code> to the product name. In Laravel Blade template:</p>
+        <div class="code-with-copy"><button class="copy-btn" type="button">Copy</button><pre>&lt;!-- product/show.blade.php --&gt;
+&lt;h1 class="product-title"&gt;{{ $product->name }}&lt;/h1&gt;
+&lt;!-- e.g. "1st Place Shield — Engravable | 25cm" --&gt;
+
+&lt;!-- Title tag: --&gt;
+&lt;title&gt;{{ $product->name }} | Buy Online | Olympia Trophies&lt;/title&gt;
+
+&lt;!-- Meta description: --&gt;
+&lt;meta name="description" content="Buy {{ $product->name }} from
+  Olympia — Australia's oldest trophy retailer since 1963.
+  Free engraving. Fast delivery Australia-wide."&gt;</pre></div>
+        <p class="verify-line"><strong>How to verify:</strong> <code>curl -s https://olympia.com.au/product/1st-place-shield | grep -i '&lt;h1'</code> → should show product name, not homepage tagline</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FINDING 8: SEO-004 -->
+<div class="finding-card section" id="s8" data-finding-id="SEO-004">
+  <label class="resolved-toggle" for="fix-SEO-004"><input type="checkbox" class="finding-check" id="fix-SEO-004" data-finding-id="SEO-004"><span class="resolved-label"><span class="resolved-text-pending">Mark as addressed</span><span class="resolved-text-done">Addressed ✓</span></span></label>
+  <div class="section-head-row"><div class="section-num">8</div><span class="section-eyebrow" style="margin-bottom:0;">On-Page · Category Pages</span></div>
+  <h2 class="section-h2">Category pages use generic og:image — not category-specific</h2>
+  <hr class="section-divider">
+  <p class="page-line"><strong>Pages affected (118+):</strong> All category pages across /trophies/*, /sports-medals/*, /school-awards/*, /gifts/*</p>
+  <div class="ba-grid">
+    <div class="ba-col">
+      <div class="ba-header before-h"><span class="ba-dot before-dot"></span>SEO Audit Finding</div>
+      <div class="ba-body before-body">
+        <p class="badge-row"><strong>Severity:</strong> <span class="sev-badge sev-medium">Medium</span> <strong>Channels:</strong> <span class="ch-badge ch-seo">SEO</span></p>
+        <p class="conf-row"><span class="conf-chip conf-high">Confidence 98/100</span> <span>evidence: <code>og:image on /trophies/cricket-trophies and /trophies-sydney both = OLYMPIA.jpg.png</code></span></p>
+        <p>Every page — category, product, location, static — uses the same <code>og:image: OLYMPIA.jpg.png</code>. When /trophies/cricket-trophies is shared on Facebook or WhatsApp, the preview image is the generic Olympia logo. A cricket trophy image would dramatically increase click-through from social shares.</p>
+        <p>Category images are available in the product catalog — the category's first featured product image can be used as the og:image.</p>
+      </div>
+    </div>
+    <div class="ba-col">
+      <div class="ba-header after-h"><span class="ba-dot after-dot"></span>Revamp Implementation</div>
+      <div class="ba-body after-body">
+        <p>In the category template, set og:image to the category's featured image or first product image. Fall back to the brand logo if no image is available.</p>
+        <div class="code-with-copy"><button class="copy-btn" type="button">Copy</button><pre>&lt;!-- In category/show.blade.php --&gt;
+@php
+  $ogImage = $category->og_image
+    ?? $category->products->first()?->image_url
+    ?? asset('assets/frontend/img/OLYMPIA.jpg.png');
+@endphp
+
+&lt;meta property="og:image" content="{{ $ogImage }}"&gt;
+&lt;meta property="og:image:width" content="1200"&gt;
+&lt;meta property="og:image:height" content="630"&gt;
+&lt;meta property="og:image:alt"
+  content="{{ $category->name }} — Olympia Trophies"&gt;</pre></div>
+        <p class="verify-line"><strong>How to verify:</strong> Facebook Debugger for /trophies/cricket-trophies → preview image should show a cricket trophy, not the Olympia logo</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FINDING 9: SEO-005 -->
+<div class="finding-card section" id="s9" data-finding-id="SEO-005">
+  <label class="resolved-toggle" for="fix-SEO-005"><input type="checkbox" class="finding-check" id="fix-SEO-005" data-finding-id="SEO-005"><span class="resolved-label"><span class="resolved-text-pending">Mark as addressed</span><span class="resolved-text-done">Addressed ✓</span></span></label>
+  <div class="section-head-row"><div class="section-num">9</div><span class="section-eyebrow" style="margin-bottom:0;">On-Page · Product Pages</span></div>
+  <h2 class="section-h2">Product form inputs missing label elements — Add to Cart inaccessible</h2>
+  <hr class="section-divider">
+  <p class="page-line"><strong>Pages affected (785):</strong> <code>https://olympia.com.au/product/*</code></p>
+  <div class="ba-grid">
+    <div class="ba-col">
+      <div class="ba-header before-h"><span class="ba-dot before-dot"></span>SEO Audit Finding</div>
+      <div class="ba-body before-body">
+        <p class="badge-row"><strong>Severity:</strong> <span class="sev-badge sev-medium">Medium</span> <strong>Channels:</strong> <span class="ch-badge ch-seo">SEO</span> <span class="ch-badge ch-axo">AXO</span></p>
+        <p class="conf-row"><span class="conf-chip conf-high">Confidence 95/100</span> <span>evidence: <code>&lt;label for=&gt; count: 0 on product page · 6 input elements found · no associated labels</code></span></p>
+        <p>The product page has <strong>6 input elements</strong> (quantity, engraving text, options) and <strong>zero</strong> <code>&lt;label for=&gt;</code> associations. While 63 aria-label attributes exist sitewide (on nav buttons), the core purchase form inputs are unlabelled. This affects:</p>
+        <ul>
+          <li>Screen reader users cannot identify form fields</li>
+          <li>AI agents using Playwright/CDP automation cannot locate inputs to fill (breaks agentic checkout)</li>
+          <li>Google's form quality signal is negative</li>
+        </ul>
+      </div>
+    </div>
+    <div class="ba-col">
+      <div class="ba-header after-h"><span class="ba-dot after-dot"></span>Revamp Implementation</div>
+      <div class="ba-body after-body">
+        <p>Add explicit <code>&lt;label for=&gt;</code> tags to every form input on the product page. For visually hidden labels, use the <code>sr-only</code> Bootstrap class.</p>
+        <div class="code-with-copy"><button class="copy-btn" type="button">Copy</button><pre>&lt;!-- Before (missing label): --&gt;
+&lt;input type="number" id="quantity" name="quantity" 
+  min="1" value="1"&gt;
+
+&lt;!-- After (with associated label): --&gt;
+&lt;label for="product-quantity"&gt;Quantity&lt;/label&gt;
+&lt;input type="number" id="product-quantity" name="quantity"
+  min="1" value="1" aria-label="Select quantity"&gt;
+
+&lt;!-- For engraving text input: --&gt;
+&lt;label for="engraving-text"&gt;Engraving Text (optional)&lt;/label&gt;
+&lt;input type="text" id="engraving-text" name="engraving"
+  placeholder="e.g. John Smith — Player of the Year 2025"
+  aria-describedby="engraving-hint"&gt;
+&lt;span id="engraving-hint" class="form-text"&gt;
+  Max 40 characters. Leave blank if no engraving required.
+&lt;/span&gt;</pre></div>
+        <p class="verify-line"><strong>How to verify:</strong> Run <code>axe-core</code> on a product page URL — form-field-multiple-labels and label errors should be 0</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FINDING 10: SEO-006 -->
+<div class="finding-card section" id="s10" data-finding-id="SEO-006">
+  <label class="resolved-toggle" for="fix-SEO-006"><input type="checkbox" class="finding-check" id="fix-SEO-006" data-finding-id="SEO-006"><span class="resolved-label"><span class="resolved-text-pending">Mark as addressed</span><span class="resolved-text-done">Addressed ✓</span></span></label>
+  <div class="section-head-row"><div class="section-num">10</div><span class="section-eyebrow" style="margin-bottom:0;">On-Page · About Page</span></div>
+  <h2 class="section-h2">About Us page has no Organization schema — founding year 1963 invisible to AI</h2>
+  <hr class="section-divider">
+  <p class="page-line"><strong>Page:</strong> <code>https://olympia.com.au/about-us</code></p>
+  <div class="ba-grid">
+    <div class="ba-col">
+      <div class="ba-header before-h"><span class="ba-dot before-dot"></span>SEO Audit Finding</div>
+      <div class="ba-body before-body">
+        <p class="badge-row"><strong>Severity:</strong> <span class="sev-badge sev-medium">Medium</span> <strong>Channels:</strong> <span class="ch-badge ch-seo">SEO</span> <span class="ch-badge ch-geo">GEO</span></p>
+        <p class="conf-row"><span class="conf-chip conf-high">Confidence 98/100</span> <span>evidence: <code>About Us — JSON-LD blocks: 0. Page confirms 1963 founding in body text.</code></span></p>
+        <p>The About Us page mentions Olympia's founding in 1963 (making it a 63-year-old business), third-generation family ownership, and team details — but has <strong>zero JSON-LD schema</strong>. This is the highest-trust page on the site, yet it contributes nothing to Google's or LLMs' entity knowledge about Olympia.</p>
+        <p>Contact page is also schema-free — no <code>ContactPage</code> schema, despite having phone, email, address, and a labeled contact form.</p>
+      </div>
+    </div>
+    <div class="ba-col">
+      <div class="ba-header after-h"><span class="ba-dot after-dot"></span>Revamp Implementation</div>
+      <div class="ba-body after-body">
+        <p>Add <code>Organization</code> schema to About Us. Add <code>ContactPage</code> schema to Contact page.</p>
+        <div class="code-with-copy"><button class="copy-btn" type="button">Copy</button><pre>&lt;!-- about-us.blade.php --&gt;
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "Olympia Trophies Corporate",
+  "url": "https://olympia.com.au/",
+  "foundingDate": "1963",
+  "description": "Third-generation Australian family business
+    specialising in trophies, awards, and gifts since 1963.",
+  "numberOfEmployees": {"@type": "QuantitativeValue", "value": 20},
+  "areaServed": "AU",
+  "contactPoint": {
+    "@type": "ContactPoint",
+    "telephone": "+611300544145",
+    "contactType": "customer service",
+    "areaServed": "AU",
+    "availableLanguage": "English"
+  },
+  "sameAs": [
+    "https://www.facebook.com/olympiatrophiescorporate",
+    "https://www.linkedin.com/company/olympia-trophies"
+  ]
+}
+
+&lt;!-- contact.blade.php --&gt;
+{
+  "@context": "https://schema.org",
+  "@type": "ContactPage",
+  "name": "Contact Olympia Trophies",
+  "url": "https://olympia.com.au/contact",
+  "description": "Contact our team for trophy orders,
+    engraving enquiries, and bulk pricing.",
+  "mainEntity": {
+    "@type": "Organization",
+    "name": "Olympia Trophies Corporate",
+    "telephone": "+611300544145"
+  }
+}</pre></div>
+        <p class="verify-line"><strong>How to verify:</strong> Rich Results Test on /about-us → Organization entity should be detected</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FINDING 11: SEO-007 -->
+<div class="finding-card section" id="s11" data-finding-id="SEO-007">
+  <label class="resolved-toggle" for="fix-SEO-007"><input type="checkbox" class="finding-check" id="fix-SEO-007" data-finding-id="SEO-007"><span class="resolved-label"><span class="resolved-text-pending">Mark as addressed</span><span class="resolved-text-done">Addressed ✓</span></span></label>
+  <div class="section-head-row"><div class="section-num">11</div><span class="section-eyebrow" style="margin-bottom:0;">On-Page · Homepage</span></div>
+  <h2 class="section-h2">Missing og:image on homepage + Twitter Card incomplete sitewide</h2>
+  <hr class="section-divider">
+  <p class="page-line"><strong>Page:</strong> <code>https://olympia.com.au/</code></p>
+  <div class="ba-grid">
+    <div class="ba-col">
+      <div class="ba-header before-h"><span class="ba-dot before-dot"></span>SEO Audit Finding</div>
+      <div class="ba-body before-body">
+        <p class="badge-row"><strong>Severity:</strong> <span class="sev-badge sev-low">Low</span> <strong>Channels:</strong> <span class="ch-badge ch-seo">SEO</span></p>
+        <p>Homepage: <code>og:image</code> set to generic OLYMPIA.jpg.png (not a proper 1200×630 OG image). Twitter card missing <code>twitter:title</code>, <code>twitter:description</code>. Location pages: <code>og:title</code> and <code>og:description</code> are empty strings. Social sharing is broken sitewide.</p>
+      </div>
+    </div>
+    <div class="ba-col">
+      <div class="ba-header after-h"><span class="ba-dot after-dot"></span>Revamp Implementation</div>
+      <div class="ba-body after-body">
+        <div class="code-with-copy"><button class="copy-btn" type="button">Copy</button><pre>&lt;!-- Global layout (layout.blade.php): --&gt;
+&lt;meta property="og:title"
+  content="{{ $metaTitle ?? config('seo.default_title') }}"&gt;
+&lt;meta property="og:description"
+  content="{{ $metaDesc ?? config('seo.default_desc') }}"&gt;
+&lt;meta property="og:image"
+  content="{{ $ogImage ?? asset('img/og/olympia-1200x630.jpg') }}"&gt;
+&lt;meta name="twitter:card" content="summary_large_image"&gt;
+&lt;meta name="twitter:title"
+  content="{{ $metaTitle ?? config('seo.default_title') }}"&gt;
+&lt;meta name="twitter:description"
+  content="{{ $metaDesc ?? config('seo.default_desc') }}"&gt;
+&lt;meta name="twitter:image"
+  content="{{ $ogImage ?? asset('img/og/olympia-1200x630.jpg') }}"&gt;</pre></div>
+        <p class="verify-line"><strong>How to verify:</strong> Facebook Debugger on homepage — image, title, description should all show populated values</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SITE-WIDE GROUP -->
+<div class="group-divider" id="group-sitewide">
+  <span class="group-eyebrow">Audit group</span>
+  <h1 class="group-heading">Site-Wide Critical Gaps</h1>
+  <p class="group-subtitle">Findings affecting entire page type families — location pages, all categories, full product catalog</p>
+</div>
+
+<!-- FINDING 12: SITE-001 -->
+<div class="finding-card section" id="s12" data-finding-id="SITE-001">
+  <label class="resolved-toggle" for="fix-SITE-001"><input type="checkbox" class="finding-check" id="fix-SITE-001" data-finding-id="SITE-001"><span class="resolved-label"><span class="resolved-text-pending">Mark as addressed</span><span class="resolved-text-done">Addressed ✓</span></span></label>
+  <div class="section-head-row"><div class="section-num">12</div><span class="section-eyebrow" style="margin-bottom:0;">Local SEO · 9 City Pages</span></div>
+  <h2 class="section-h2">All 9 location pages have blank titles, empty descriptions, and no schema</h2>
+  <hr class="section-divider">
+  <p class="section-intro">Nine city-targeted landing pages (Sydney, Melbourne, Brisbane, Adelaide, Perth, Canberra, Darwin, Hobart, Gold Coast) are effectively invisible — blank metadata, a generic homepage-clone H1, and zero JSON-LD.</p>
+  <div class="pages-grid">
+    <code class="page-chip">/trophies-sydney</code><code class="page-chip">/trophies-melbourne</code><code class="page-chip">/trophies-brisbane</code><code class="page-chip">/trophies-adelaide</code><code class="page-chip">/trophies-perth</code><code class="page-chip">/trophies-canberra</code><code class="page-chip">/trophies-darwin</code><code class="page-chip">/trophies-hobart</code><code class="page-chip">/trophies-gold</code>
+  </div>
+  <div class="ba-grid">
+    <div class="ba-col">
+      <div class="ba-header before-h"><span class="ba-dot before-dot"></span>SEO Audit Finding</div>
+      <div class="ba-body before-body">
+        <p class="badge-row"><strong>Severity:</strong> <span class="sev-badge sev-high">High</span> <strong>Channels:</strong> <span class="ch-badge ch-seo">SEO</span> <span class="ch-badge ch-geo">GEO</span></p>
+        <p class="conf-row"><span class="conf-chip conf-high">Confidence 99/100</span> <span>evidence: <code>/trophies-sydney: title="Olympia Trophies " (blank), meta desc="" (empty), og:title="" (empty), H1="Shop Online with Australia's Largest Trophy Retailer" (generic)</code></span></p>
+        <p>Live fetch confirmed on both /trophies-sydney and /trophies-melbourne:</p>
+        <ul>
+          <li><code>&lt;title&gt;</code>: "Olympia Trophies " — no city, no keyword</li>
+          <li><code>meta description</code>: empty string</li>
+          <li><code>og:title</code>: empty string</li>
+          <li><code>H1</code>: generic homepage clone — no city targeting</li>
+          <li><code>JSON-LD</code>: 0 blocks — no LocalBusiness with city address</li>
+          <li><code>Product links</code>: 0 — no products shown on page</li>
+        </ul>
+        <p>These pages are indexed (confirmed in sitemap at priority 0.80) but contribute <strong>nothing to local SEO</strong>. A user searching "trophies Sydney" gets a page with no Sydney-specific content.</p>
+      </div>
+    </div>
+    <div class="ba-col">
+      <div class="ba-header after-h"><span class="ba-dot after-dot"></span>Revamp Implementation</div>
+      <div class="ba-body after-body">
+        <p>Rebuild each location page with: city-targeting title + meta description, city H1, city-specific intro copy, LocalBusiness schema with city-level <code>areaServed</code>, and a product grid filtered to popular/in-stock items for that state.</p>
+        <div class="code-with-copy"><button class="copy-btn" type="button">Copy</button><pre>&lt;!-- For /trophies-sydney: --&gt;
+&lt;title&gt;Trophies &amp; Medals in Sydney | Olympia Trophies&lt;/title&gt;
+&lt;meta name="description" content="Buy premium trophies, medals &amp;
+  engraved awards in Sydney. Fast delivery across Greater Sydney.
+  Australia's oldest trophy retailer since 1963."&gt;
+
+&lt;h1&gt;Trophies &amp; Awards Delivered to Sydney&lt;/h1&gt;
+&lt;p&gt;Olympia Trophies ships to all Sydney suburbs within 3–7
+  business days. Free engraving on orders over 10 units.&lt;/p&gt;
+
+// JSON-LD (LocalBusiness targeting Sydney):
+{
+  "@type": "LocalBusiness",
+  "name": "Olympia Trophies — Sydney Delivery",
+  "areaServed": {
+    "@type": "City",
+    "name": "Sydney",
+    "addressRegion": "NSW",
+    "addressCountry": "AU"
+  },
+  "url": "https://olympia.com.au/trophies-sydney",
+  "telephone": "+611300544145"
+}</pre></div>
+        <p class="verify-line"><strong>How to verify:</strong> Google "trophies Sydney" after indexing — verify the location page appears in local/organic results. Check Google Search Console for impressions on city-specific queries.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FINDING 13: SITE-002 -->
+<div class="finding-card section" id="s13" data-finding-id="SITE-002">
+  <label class="resolved-toggle" for="fix-SITE-002"><input type="checkbox" class="finding-check" id="fix-SITE-002" data-finding-id="SITE-002"><span class="resolved-label"><span class="resolved-text-pending">Mark as addressed</span><span class="resolved-text-done">Addressed ✓</span></span></label>
+  <div class="section-head-row"><div class="section-num">13</div><span class="section-eyebrow" style="margin-bottom:0;">Accessibility · Category Pages</span></div>
+  <h2 class="section-h2">~42 of 50 images per category page missing alt attributes</h2>
+  <hr class="section-divider">
+  <p class="page-line"><strong>Pages affected (118+):</strong> All category pages · confirmed on /trophies/cricket-trophies</p>
+  <div class="ba-grid">
+    <div class="ba-col">
+      <div class="ba-header before-h"><span class="ba-dot before-dot"></span>SEO Audit Finding</div>
+      <div class="ba-body before-body">
+        <p class="badge-row"><strong>Severity:</strong> <span class="sev-badge sev-medium">Medium</span> <strong>Channels:</strong> <span class="ch-badge ch-seo">SEO</span> <span class="ch-badge ch-axo">AXO</span></p>
+        <p class="conf-row"><span class="conf-chip conf-high">Confidence 95/100</span> <span>evidence: <code>/trophies/cricket-trophies — 50 images, ~42 without alt attribute</code></span></p>
+        <p>On /trophies/cricket-trophies: 50 <code>&lt;img&gt;</code> tags found, ~42 lack an <code>alt</code> attribute. Product images are the catalog's primary visual asset — without alt text:</p>
+        <ul>
+          <li>Google Image Search cannot index or rank these product images</li>
+          <li>AI vision agents (GPT-4V, Claude Vision) cannot describe products</li>
+          <li>Screen readers announce "image" with no description</li>
+          <li>Google's image alt quality signal is negative sitewide</li>
+        </ul>
+      </div>
+    </div>
+    <div class="ba-col">
+      <div class="ba-header after-h"><span class="ba-dot after-dot"></span>Revamp Implementation</div>
+      <div class="ba-body after-body">
+        <p>In the product card partial, ensure <code>alt</code> is dynamically set to the product name. Add a fallback for any image without a name.</p>
+        <div class="code-with-copy"><button class="copy-btn" type="button">Copy</button><pre>&lt;!-- In product card partial (resources/views/components/product-card.blade.php) --&gt;
+&lt;img
+  src="{{ $product->image_url }}"
+  alt="{{ $product->name }} — {{ $product->category->name }} | Olympia Trophies"
+  loading="lazy"
+  width="300"
+  height="300"
+&gt;
+
+&lt;!-- Example rendered output: --&gt;
+&lt;!-- alt="1st Place Shield — Trophies | Olympia Trophies" --&gt;</pre></div>
+        <p class="verify-line"><strong>How to verify:</strong> Run <code>npx axe-cli https://olympia.com.au/trophies/cricket-trophies</code> — image-alt violations should be 0</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FINDING 14: SITE-003 -->
+<div class="finding-card section" id="s14" data-finding-id="SITE-003">
+  <label class="resolved-toggle" for="fix-SITE-003"><input type="checkbox" class="finding-check" id="fix-SITE-003" data-finding-id="SITE-003"><span class="resolved-label"><span class="resolved-text-pending">Mark as addressed</span><span class="resolved-text-done">Addressed ✓</span></span></label>
+  <div class="section-head-row"><div class="section-num">14</div><span class="section-eyebrow" style="margin-bottom:0;">HTML Lang · All Pages</span></div>
+  <h2 class="section-h2">HTML lang="en" not "en-AU" — affects AU locale signals sitewide</h2>
+  <hr class="section-divider">
+  <p class="page-line"><strong>Pages affected:</strong> All pages (confirmed on homepage, category, product, location pages)</p>
+  <div class="ba-grid">
+    <div class="ba-col">
+      <div class="ba-header before-h"><span class="ba-dot before-dot"></span>SEO Audit Finding</div>
+      <div class="ba-body before-body">
+        <p class="badge-row"><strong>Severity:</strong> <span class="sev-badge sev-low">Low</span> <strong>Channels:</strong> <span class="ch-badge ch-seo">SEO</span> <span class="ch-badge ch-axo">AXO</span></p>
+        <p class="conf-row"><span class="conf-chip conf-high">Confidence 99/100</span> <span>evidence: <code>&lt;html lang="en"&gt; confirmed on all 4 page types sampled</code></span></p>
+        <p>All pages use <code>&lt;html lang="en"&gt;</code>. For an Australian business serving exclusively Australian customers, the correct BCP 47 language tag is <code>en-AU</code>. This affects:</p>
+        <ul>
+          <li>AXO-1.1 check — AI agents load AU-specific vocabulary matrices from the lang attribute</li>
+          <li>Browser spell-check dialect (en-GB vs en-AU)</li>
+          <li>Google's locale inference (minor signal, but relevant for AU-specific SERPs)</li>
+        </ul>
+      </div>
+    </div>
+    <div class="ba-col">
+      <div class="ba-header after-h"><span class="ba-dot after-dot"></span>Revamp Implementation</div>
+      <div class="ba-body after-body">
+        <p>Update the root layout template — a one-line change that propagates sitewide.</p>
+        <div class="code-with-copy"><button class="copy-btn" type="button">Copy</button><pre>&lt;!-- resources/views/layouts/app.blade.php --&gt;
+
+&lt;!-- Before: --&gt;
+&lt;html lang="en"&gt;
+
+&lt;!-- After: --&gt;
+&lt;html lang="en-AU"&gt;</pre></div>
+        <p class="verify-line"><strong>How to verify:</strong> <code>curl -s https://olympia.com.au/ | grep 'html lang'</code> → <code>html lang="en-AU"</code></p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- AXO GROUP -->
+<div class="group-divider group-axo" id="group-axo">
+  <span class="group-eyebrow axo-eyebrow">⚡ New Audit Group</span>
+  <h1 class="group-heading">Agentic Browsing Readiness (AXO)</h1>
+  <p class="group-subtitle">How well can AI agents (Perplexity Comet, ChatGPT Atlas, Chrome Gemini Auto Browse, Claude for Chrome) navigate, parse, and transact on this site? AXO findings are scored against the AXO-1.x checklist from the seo-audit skill reference.</p>
+</div>
+
+<!-- AXO SUMMARY TABLE -->
+<div class="section" id="axo-summary">
+  <span class="section-eyebrow">AXO Checklist Results</span>
+  <h2 class="section-h2">Agent Experience Optimization — All Checks</h2>
+  <hr class="section-divider">
+  <p class="section-intro">8 AXO checks run across homepage, category, product, and location page types. Results reflect live site state as of 2026-07-03.</p>
+  <table class="axo-result-table">
+    <thead><tr><th>Check</th><th>What It Tests</th><th>Result</th><th>Finding</th></tr></thead>
+    <tbody>
+      <tr><td><strong>AXO-1.1</strong></td><td>HTML lang="en-AU" (correct locale tag)</td><td><span class="axo-fail">FAIL</span></td><td><a href="#s15">→ Finding A1</a></td></tr>
+      <tr><td><strong>AXO-1.2</strong></td><td>Single H1 per page, correct entity name</td><td><span class="axo-partial">PARTIAL</span></td><td><a href="#s16">→ Finding A2</a></td></tr>
+      <tr><td><strong>AXO-1.3</strong></td><td>Catalog in raw HTML (SSR, not JS-rendered)</td><td><span class="axo-pass">PASS</span></td><td>✓ 72 product links in raw HTML on cricket-trophies</td></tr>
+      <tr><td><strong>AXO-1.4</strong></td><td>Form labels on product page inputs</td><td><span class="axo-fail">FAIL</span></td><td><a href="#s17">→ Finding A3</a></td></tr>
+      <tr><td><strong>AXO-1.5</strong></td><td>Keyboard/tab accessibility for interactive elements</td><td><span class="axo-partial">PARTIAL</span></td><td><a href="#s18">→ Finding A4</a></td></tr>
+      <tr><td><strong>AXO-1.6</strong></td><td>JS hydration resiliency (SSR fallback)</td><td><span class="axo-pass">PASS</span></td><td>✓ PHP/Laravel = server-side rendered, no JS dependency for content</td></tr>
+      <tr><td><strong>AXO-1.7</strong></td><td>robots.txt allows live AI retrieval bots</td><td><span class="axo-fail">FAIL</span></td><td><a href="#s1">→ Finding 1 (GEO-001)</a></td></tr>
+      <tr><td><strong>AXO-1.8</strong></td><td>llms.txt + llms-full.txt present</td><td><span class="axo-fail">FAIL</span></td><td><a href="#s19">→ Finding A5</a></td></tr>
+    </tbody>
+  </table>
+  <p style="margin-top:12px;font-size:12px;color:var(--text-muted);">AXO Score: <strong>2 PASS / 2 PARTIAL / 4 FAIL</strong> out of 8 checks. Score: <strong>25%</strong> — Critical. Agentic browsers cannot reliably transact on this site.</p>
+</div>
+
+<!-- FINDING 15: AXO-1 -->
+<div class="finding-card section" id="s15" data-finding-id="AXO-1">
+  <label class="resolved-toggle" for="fix-AXO-1"><input type="checkbox" class="finding-check" id="fix-AXO-1" data-finding-id="AXO-1"><span class="resolved-label"><span class="resolved-text-pending">Mark as addressed</span><span class="resolved-text-done">Addressed ✓</span></span></label>
+  <div class="section-head-row"><div class="section-num num-axo">A1</div><span class="section-eyebrow" style="margin-bottom:0;color:var(--teal);">AXO-1.1 — HTML Lang</span></div>
+  <h2 class="section-h2">lang="en" not "en-AU" — AI agents load wrong vocabulary matrix</h2>
+  <hr class="section-divider">
+  <div class="ba-grid">
+    <div class="ba-col">
+      <div class="ba-header axo-before-h"><span class="ba-dot before-dot"></span>AXO Finding</div>
+      <div class="ba-body axo-before-body">
+        <p class="badge-row"><strong>Severity:</strong> <span class="sev-badge sev-low">Low</span> <strong>Channels:</strong> <span class="ch-badge ch-axo">AXO</span> <span class="ch-badge ch-seo">SEO</span></p>
+        <p>WCAG 2.1 SC 3.1.1 — Language of Page. Confirmed <code>lang="en"</code> on all pages. AI parser models (Perplexity Comet, Claude for Chrome) use the lang attribute to load vocabulary matrices. <code>en</code> defaults to en-US, meaning AU-specific spelling (colour, honour, specialise) may be flagged as misspellings and receive lower confidence during entity extraction.</p>
+        <div class="code-with-copy"><button class="copy-btn" type="button">Copy</button><pre>&lt;html lang="en"&gt;  &lt;!-- FAIL: should be en-AU --&gt;</pre></div>
+      </div>
+    </div>
+    <div class="ba-col">
+      <div class="ba-header axo-after-h"><span class="ba-dot axo-dot"></span>AXO Implementation</div>
+      <div class="ba-body axo-after-body">
+        <div class="code-with-copy"><button class="copy-btn" type="button">Copy</button><pre>&lt;html lang="en-AU"&gt;  &lt;!-- PASS --&gt;</pre></div>
+        <p class="axo-verify-line"><strong>AXO Verify:</strong> <code>curl -s https://olympia.com.au/ | grep 'html lang'</code> → <code>en-AU</code></p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FINDING 16: AXO-2 -->
+<div class="finding-card section" id="s16" data-finding-id="AXO-2">
+  <label class="resolved-toggle" for="fix-AXO-2"><input type="checkbox" class="finding-check" id="fix-AXO-2" data-finding-id="AXO-2"><span class="resolved-label"><span class="resolved-text-pending">Mark as addressed</span><span class="resolved-text-done">Addressed ✓</span></span></label>
+  <div class="section-head-row"><div class="section-num num-axo">A2</div><span class="section-eyebrow" style="margin-bottom:0;color:var(--teal);">AXO-1.2 — H1 Uniqueness</span></div>
+  <h2 class="section-h2">Product pages H1 = homepage tagline — AI agents misidentify page entity</h2>
+  <hr class="section-divider">
+  <div class="ba-grid">
+    <div class="ba-col">
+      <div class="ba-header axo-before-h"><span class="ba-dot before-dot"></span>AXO Finding</div>
+      <div class="ba-body axo-before-body">
+        <p class="badge-row"><strong>Severity:</strong> <span class="sev-badge sev-high">High</span> <strong>Channels:</strong> <span class="ch-badge ch-axo">AXO</span> <span class="ch-badge ch-seo">SEO</span></p>
+        <p>WCAG 2.1 SC 2.4.10 — Section Headings. Category pages PASS (H1 = category name e.g. "Cricket Trophies"). Product pages FAIL — H1 is "Buy Trophies Online from Australia's Oldest Trophy Retailer" on every product page. An AI agent parsing /product/1st-place-shield identifies the page entity as "Buy Trophies Online" — not "1st Place Shield". This corrupts AI index mappings for all 785 product pages.</p>
+        <div class="code-with-copy"><button class="copy-btn" type="button">Copy</button><pre>&lt;!-- /product/1st-place-shield --&gt;
+&lt;h1&gt;Buy Trophies Online from Australia's Oldest Trophy Retailer&lt;/h1&gt;
+&lt;!-- AI agent reads: PAGE ENTITY = "Buy Trophies Online..." --&gt;</pre></div>
+      </div>
+    </div>
+    <div class="ba-col">
+      <div class="ba-header axo-after-h"><span class="ba-dot axo-dot"></span>AXO Implementation</div>
+      <div class="ba-body axo-after-body">
+        <p>Already addressed in SEO Finding 7. Fix the product template H1 to the product name — this resolves AXO-1.2 simultaneously.</p>
+        <div class="code-with-copy"><button class="copy-btn" type="button">Copy</button><pre>&lt;!-- After fix: --&gt;
+&lt;h1&gt;1st Place Shield&lt;/h1&gt;
+&lt;!-- AI agent reads: PAGE ENTITY = "1st Place Shield" ✓ --&gt;</pre></div>
+        <p class="axo-verify-line"><strong>AXO Verify:</strong> AI agent parses H1 as product name. Check with: <code>curl -s [product-url] | pup 'h1 text{}'</code></p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FINDING 17: AXO-3 -->
+<div class="finding-card section" id="s17" data-finding-id="AXO-3">
+  <label class="resolved-toggle" for="fix-AXO-3"><input type="checkbox" class="finding-check" id="fix-AXO-3" data-finding-id="AXO-3"><span class="resolved-label"><span class="resolved-text-pending">Mark as addressed</span><span class="resolved-text-done">Addressed ✓</span></span></label>
+  <div class="section-head-row"><div class="section-num num-axo">A3</div><span class="section-eyebrow" style="margin-bottom:0;color:var(--teal);">AXO-1.4 — Form Labels</span></div>
+  <h2 class="section-h2">Product purchase form has no label elements — agentic checkout is blocked</h2>
+  <hr class="section-divider">
+  <div class="ba-grid">
+    <div class="ba-col">
+      <div class="ba-header axo-before-h"><span class="ba-dot before-dot"></span>AXO Finding</div>
+      <div class="ba-body axo-before-body">
+        <p class="badge-row"><strong>Severity:</strong> <span class="sev-badge sev-high">High</span> <strong>Channels:</strong> <span class="ch-badge ch-axo">AXO</span></p>
+        <p>WCAG 2.1 SC 1.3.1 + 4.1.2. Live confirmation: <strong>0 label[for] elements</strong> on /product/1st-place-shield. 6 inputs exist (quantity, engraving text, product options). AI agents using Playwright/CDP automation to complete purchases identify form fields by: (1) <code>&lt;label for=&gt;</code>, (2) <code>aria-label</code>, (3) <code>placeholder</code>. When label[for] is absent, agents fall back to placeholder text — which is unreliable and breaks on multi-language or dynamic updates.</p>
+        <p>This directly breaks <strong>ChatGPT Atlas</strong> and <strong>Perplexity Comet</strong> agentic purchasing flows that try to add items to cart and proceed to checkout.</p>
+      </div>
+    </div>
+    <div class="ba-col">
+      <div class="ba-header axo-after-h"><span class="ba-dot axo-dot"></span>AXO Implementation</div>
+      <div class="ba-body axo-after-body">
+        <p>Already addressed in SEO Finding 9. Fix same template — this resolves AXO-1.4.</p>
+        <div class="code-with-copy"><button class="copy-btn" type="button">Copy</button><pre>&lt;label for="product-quantity"&gt;Quantity&lt;/label&gt;
+&lt;input id="product-quantity" type="number" name="quantity"
+  min="1" value="1" aria-label="Select quantity"&gt;
+
+&lt;label for="engraving-text"&gt;Engraving Text (optional)&lt;/label&gt;
+&lt;input id="engraving-text" type="text" name="engraving"
+  aria-label="Engraving text for personalisation"
+  placeholder="e.g. Player of the Year 2025"&gt;</pre></div>
+        <p class="axo-verify-line"><strong>AXO Verify:</strong> Playwright script: <code>page.getByLabel('Quantity').fill('2')</code> — should succeed without error</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FINDING 18: AXO-4 -->
+<div class="finding-card section" id="s18" data-finding-id="AXO-4">
+  <label class="resolved-toggle" for="fix-AXO-4"><input type="checkbox" class="finding-check" id="fix-AXO-4" data-finding-id="AXO-4"><span class="resolved-label"><span class="resolved-text-pending">Mark as addressed</span><span class="resolved-text-done">Addressed ✓</span></span></label>
+  <div class="section-head-row"><div class="section-num num-axo">A4</div><span class="section-eyebrow" style="margin-bottom:0;color:var(--teal);">AXO-1.5 — Keyboard Navigation</span></div>
+  <h2 class="section-h2">1 tabindex="-1" on clickable element — keyboard nav partially blocked</h2>
+  <hr class="section-divider">
+  <div class="ba-grid">
+    <div class="ba-col">
+      <div class="ba-header axo-before-h"><span class="ba-dot before-dot"></span>AXO Finding</div>
+      <div class="ba-body axo-before-body">
+        <p class="badge-row"><strong>Severity:</strong> <span class="sev-badge sev-low">Low</span> <strong>Channels:</strong> <span class="ch-badge ch-axo">AXO</span></p>
+        <p>WCAG 2.1 SC 2.1.1 + 2.4.3. One <code>tabindex="-1"</code> was found on an interactive element. Most interactive components use <code>aria-label</code> correctly (63 instances). The overall keyboard navigation is functional but one element is hidden from Tab order. AI agents using CDP's <code>focus()</code> API cannot activate elements with tabindex=-1.</p>
+      </div>
+    </div>
+    <div class="ba-col">
+      <div class="ba-header axo-after-h"><span class="ba-dot axo-dot"></span>AXO Implementation</div>
+      <div class="ba-body axo-after-body">
+        <p>Audit all interactive elements with <code>tabindex="-1"</code>. Only use it for elements that are genuinely non-interactive (tooltips, decorative items). Remove from any clickable button, link, or input.</p>
+        <div class="code-with-copy"><button class="copy-btn" type="button">Copy</button><pre>&lt;!-- Identify the element: --&gt;
+document.querySelectorAll('[tabindex="-1"]')
+  .forEach(el => console.log(el));
+
+&lt;!-- If it's a button, remove tabindex=-1: --&gt;
+&lt;!-- Before: --&gt;
+&lt;button tabindex="-1" ...&gt;...&lt;/button&gt;
+&lt;!-- After: --&gt;
+&lt;button ...&gt;...&lt;/button&gt;</pre></div>
+        <p class="axo-verify-line"><strong>AXO Verify:</strong> Tab through product page — every interactive control should be reachable without mouse</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FINDING 19: AXO-5 -->
+<div class="finding-card section" id="s19" data-finding-id="AXO-5">
+  <label class="resolved-toggle" for="fix-AXO-5"><input type="checkbox" class="finding-check" id="fix-AXO-5" data-finding-id="AXO-5"><span class="resolved-label"><span class="resolved-text-pending">Mark as addressed</span><span class="resolved-text-done">Addressed ✓</span></span></label>
+  <div class="section-head-row"><div class="section-num num-axo">A5</div><span class="section-eyebrow" style="margin-bottom:0;color:var(--teal);">AXO-1.8 — LLM Discovery Files</span></div>
+  <h2 class="section-h2">llms-full.txt missing (404) — models cannot index full product catalog</h2>
+  <hr class="section-divider">
+  <div class="ba-grid">
+    <div class="ba-col">
+      <div class="ba-header axo-before-h"><span class="ba-dot before-dot"></span>AXO Finding</div>
+      <div class="ba-body axo-before-body">
+        <p class="badge-row"><strong>Severity:</strong> <span class="sev-badge sev-medium">Medium</span> <strong>Channels:</strong> <span class="ch-badge ch-axo">AXO</span> <span class="ch-badge ch-geo">GEO</span></p>
+        <p class="conf-row"><span class="conf-chip conf-high">Confidence 99/100</span></p>
+        <p>Both <code>https://olympia.com.au/llms.txt</code> (404) and <code>https://olympia.com.au/llms-full.txt</code> (404) are missing. The <code>llms-full.txt</code> is the expanded version that lists every indexable page — giving LLMs a structured inventory of all 785 products and 118 category pages. Without it, models cannot build a complete context map of Olympia's catalog.</p>
+      </div>
+    </div>
+    <div class="ba-col">
+      <div class="ba-header axo-after-h"><span class="ba-dot axo-dot"></span>AXO Implementation</div>
+      <div class="ba-body axo-after-body">
+        <p>Create both files. <code>llms-full.txt</code> should be generated from the sitemap or CMS and include every product + category page with a short description.</p>
+        <div class="code-with-copy"><button class="copy-btn" type="button">Copy</button><pre># /llms-full.txt — Olympia Trophies (Full Index)
+
+> Australia's oldest trophy retailer since 1963.
+  Full product catalog — 785 products, 118 categories.
+
+## Trophies
+- [Cricket Trophies](https://olympia.com.au/trophies/cricket-trophies):
+  Premium cricket trophies for clubs, schools &amp; competitions
+- [Football Trophies](https://olympia.com.au/trophies/football-trophies):
+  AFL &amp; soccer trophies with free engraving
+[... all 67 trophy categories ...]
+
+## Sports Medals
+- [Cricket Medals](https://olympia.com.au/sports-medals/cricket-medals):
+  Gold, silver &amp; bronze cricket medals for tournaments
+[... all 41 medal categories ...]
+
+## School Awards
+[... all 15 school award categories ...]
+
+## Products (sample)
+- [1st Place Shield](https://olympia.com.au/product/1st-place-shield)
+[... generated from product feed ...]</pre></div>
+        <p class="axo-verify-line"><strong>AXO Verify:</strong> <code>curl -I https://olympia.com.au/llms-full.txt</code> → HTTP 200. Paste URL into Perplexity — verify Olympia products are cited in product-specific answers.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FINDING 20: AXO-6 -->
+<div class="finding-card section" id="s20" data-finding-id="AXO-6">
+  <label class="resolved-toggle" for="fix-AXO-6"><input type="checkbox" class="finding-check" id="fix-AXO-6" data-finding-id="AXO-6"><span class="resolved-label"><span class="resolved-text-pending">Mark as addressed</span><span class="resolved-text-done">Addressed ✓</span></span></label>
+  <div class="section-head-row"><div class="section-num num-axo">A6</div><span class="section-eyebrow" style="margin-bottom:0;color:var(--teal);">AXO-1.3 — Raw HTML Grid ✓</span></div>
+  <h2 class="section-h2">PASS — Product catalog is server-side rendered (excellent AXO foundation)</h2>
+  <hr class="section-divider">
+  <div class="ba-grid">
+    <div class="ba-col">
+      <div class="ba-header axo-before-h"><span class="ba-dot before-dot"></span>AXO Check Result</div>
+      <div class="ba-body axo-before-body">
+        <p class="badge-row"><strong>Status:</strong> <span style="display:inline-block;background:var(--green-pale);color:var(--green);border:1px solid var(--green-border);font-family:var(--mono);font-size:10px;font-weight:700;padding:2px 7px;border-radius:3px;">PASS</span> <strong>Channels:</strong> <span class="ch-badge ch-axo">AXO</span></p>
+        <p>Live fetch of /trophies/cricket-trophies confirmed <strong>72 product links</strong> are present in the raw HTML source — no JavaScript execution required. The PHP/Laravel server-side rendering means:</p>
+        <ul>
+          <li>Googlebot crawls the full product grid without JS rendering</li>
+          <li>Perplexity Comet and ChatGPT Atlas can parse the full product catalog</li>
+          <li>Vision agents (GPT-4V, Claude Vision) can read product names and images</li>
+          <li>Sandbox-mode browsers get full content without hydration</li>
+        </ul>
+        <p>This is a <strong>major competitive advantage</strong> vs JS-heavy SPA competitors. No action needed.</p>
+      </div>
+    </div>
+    <div class="ba-col">
+      <div class="ba-header axo-after-h"><span class="ba-dot axo-dot"></span>Maintain This Pattern</div>
+      <div class="ba-body axo-after-body">
+        <p>Maintain SSR for all product and category grids. If any future interactive filtering is added (AJAX sort/filter), ensure the default server-rendered state contains the full product grid.</p>
+        <div class="code-with-copy"><button class="copy-btn" type="button">Copy</button><pre>&lt;!-- Good pattern (already implemented): --&gt;
+@foreach($products as $product)
+  &lt;div class="product-card"&gt;
+    &lt;a href="{{ route('product.show', $product->slug) }}"&gt;
+      &lt;img src="{{ $product->image_url }}" 
+           alt="{{ $product->name }}"&gt;
+      &lt;h3&gt;{{ $product->name }}&lt;/h3&gt;
+      &lt;span&gt;${{ $product->price }}&lt;/span&gt;
+    &lt;/a&gt;
+  &lt;/div&gt;
+@endforeach
+
+&lt;!-- Avoid: loading products via AJAX on page mount --&gt;</pre></div>
+        <p class="axo-verify-line"><strong>Monitor:</strong> Run <code>curl -s [category-url] | grep -c '/product/'</code> — product links should be &gt; 0 in raw HTML after any future refactors</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FINDING 21: AXO-7 -->
+<div class="finding-card section" id="s21" data-finding-id="AXO-7">
+  <label class="resolved-toggle" for="fix-AXO-7"><input type="checkbox" class="finding-check" id="fix-AXO-7" data-finding-id="AXO-7"><span class="resolved-label"><span class="resolved-text-pending">Mark as addressed</span><span class="resolved-text-done">Addressed ✓</span></span></label>
+  <div class="section-head-row"><div class="section-num num-axo">A7</div><span class="section-eyebrow" style="margin-bottom:0;color:var(--teal);">AXO-1.6 — JS Resiliency ✓</span></div>
+  <h2 class="section-h2">PASS — PHP/Laravel SSR means content is JS-independent</h2>
+  <hr class="section-divider">
+  <div class="ba-grid">
+    <div class="ba-col">
+      <div class="ba-header axo-before-h"><span class="ba-dot before-dot"></span>AXO Check Result</div>
+      <div class="ba-body axo-before-body">
+        <p class="badge-row"><strong>Status:</strong> <span style="display:inline-block;background:var(--green-pale);color:var(--green);border:1px solid var(--green-border);font-family:var(--mono);font-size:10px;font-weight:700;padding:2px 7px;border-radius:3px;">PASS</span> <strong>Channels:</strong> <span class="ch-badge ch-axo">AXO</span></p>
+        <p>The PHP/Laravel stack renders all content server-side. If JavaScript fails or is blocked by a sandbox policy (common in AI agent environments), the main layout, product catalog, navigation, and footer remain fully visible. The Owl Carousel and jQuery are progressive enhancements — their failure does not cause page unmounting.</p>
+        <p>No action needed. This is a resilient architecture that naturally passes AXO-1.6.</p>
+      </div>
+    </div>
+    <div class="ba-col">
+      <div class="ba-header axo-after-h"><span class="ba-dot axo-dot"></span>Maintain Pattern</div>
+      <div class="ba-body axo-after-body">
+        <p>The existing SSR pattern protects this check. Two maintenance rules to preserve it:</p>
+        <ul>
+          <li>Never gate product display behind JavaScript API calls</li>
+          <li>Always add <code>&lt;noscript&gt;</code> fallbacks to any deferred CSS loads (already implemented correctly with the <code>onload</code> + <code>&lt;noscript&gt;</code> pattern in current &lt;head&gt;)</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FINDING 22: AXO-8 -->
+<div class="finding-card section" id="s22" data-finding-id="AXO-8">
+  <label class="resolved-toggle" for="fix-AXO-8"><input type="checkbox" class="finding-check" id="fix-AXO-8" data-finding-id="AXO-8"><span class="resolved-label"><span class="resolved-text-pending">Mark as addressed</span><span class="resolved-text-done">Addressed ✓</span></span></label>
+  <div class="section-head-row"><div class="section-num num-axo">A8</div><span class="section-eyebrow" style="margin-bottom:0;color:var(--teal);">AXO-1.7 — robots.txt (cross-ref)</span></div>
+  <h2 class="section-h2">robots.txt blocks AI retrieval agents — resolves with GEO-001 fix</h2>
+  <hr class="section-divider">
+  <div class="ba-grid">
+    <div class="ba-col">
+      <div class="ba-header axo-before-h"><span class="ba-dot before-dot"></span>AXO Check Result</div>
+      <div class="ba-body axo-before-body">
+        <p class="badge-row"><strong>Status:</strong> <span class="axo-fail">FAIL</span> <strong>Channels:</strong> <span class="ch-badge ch-axo">AXO</span> <span class="ch-badge ch-geo">GEO</span></p>
+        <p>AXO-1.7 requires robots.txt to permit live user-triggered agents: <code>Perplexity-User</code>, <code>Claude-SearchBot</code>, <code>ChatGPT-User</code>, <code>Applebot-Extended</code>. Current state blocks all of them. This is also flagged as GEO-001 — a single fix resolves both.</p>
+      </div>
+    </div>
+    <div class="ba-col">
+      <div class="ba-header axo-after-h"><span class="ba-dot axo-dot"></span>Resolution</div>
+      <div class="ba-body axo-after-body">
+        <p>Implementing <a href="#s1">Finding 1 (GEO-001)</a> fully resolves AXO-1.7. No additional work needed beyond the robots.txt update.</p>
+        <p class="axo-verify-line"><strong>AXO Verify after GEO-001 fix:</strong> <code>curl -s https://olympia.com.au/robots.txt | grep -A1 'Claude-SearchBot'</code> → <code>Allow: /</code></p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- NOTES -->
+<div class="callout callout-warn" style="margin-top:24px;">
+  <div class="callout-icon">⚠️</div>
+  <div>
+    <strong>Site archetype:</strong> E-commerce (Trophies &amp; Awards Retail) — Landing/Money Page + Product Page rubrics applied. JobPosting, Course, Event schema checks skipped — not applicable.<br><br>
+    <strong>Stack:</strong> PHP/Laravel + Bootstrap CSS + jQuery/Owl Carousel + Cloudflare CDN. Server-side rendered HTML (strong positive for AXO-1.3 and AXO-1.6 — both PASS).<br><br>
+    <strong>AXO Checks AXO-1.3 and AXO-1.6 PASS</strong> — the PHP/Laravel SSR architecture is a real strength vs JS-heavy SPA competitors. The most critical AXO failures are AXO-1.4 (form labels) and AXO-1.7/1.8 (robots.txt + llms.txt), both of which have actionable fixes in this report.
+  </div>
+</div>
+
+<aside class="rerun-panel" id="rerun-panel" aria-hidden="true">
+  <div class="rerun-inner">
+    <div style="font-size:48px;margin-bottom:8px;">🎉</div>
+    <h2 style="font-family:'Playfair Display',serif;font-size:26px;font-weight:700;color:#065f46;margin:0 0 10px;">All 22 findings addressed!</h2>
+    <p style="color:#065f46;font-size:15px;margin:0 0 20px;">Great work. Re-run to verify fixes landed.</p>
+    <div style="background:white;border:1px solid var(--green-border);border-radius:12px;padding:18px 22px;margin-bottom:16px;text-align:left;">
+      <ol style="margin:0;padding-left:22px;font-size:13.5px;color:var(--text-body);line-height:1.7;">
+        <li>Re-run full site audit: <code style="background:#0f172a;color:#a8ff78;padding:4px 10px;border-radius:5px;font-size:12.5px;">/full-audit https://olympia.com.au/</code></li>
+        <li>Re-run AXO only: <code style="background:#0f172a;color:#a8ff78;padding:4px 10px;border-radius:5px;font-size:12.5px;">/axo-audit https://olympia.com.au/</code></li>
+      </ol>
+    </div>
+    <button type="button" id="rerun-reset" style="background:transparent;border:1px solid rgba(6,95,70,0.25);color:#065f46;padding:6px 14px;border-radius:18px;cursor:pointer;font-size:12px;">Reset my progress</button>
+  </div>
+</aside>
+
+</div><!-- /content -->
+
+<div class="doc-footer">
+  <span>Olympia Trophies — Full Site SEO / AEO / GEO / AXO Audit v2 · 2026-07-03 · 966 URLs · 22 findings</span>
+  <span>Stack: <strong>PHP/Laravel + Cloudflare</strong> · Target: <strong>https://olympia.com.au/</strong></span>
+</div>
+<div class="doc-signature">
+  <span class="sig-heart">✦</span>
+  <span class="sig-text">Crafted with care by <a href="https://www.linkedin.com/in/girisshgk/" rel="author noopener" target="_blank"><strong>Giriish</strong></a> · Father of SEO · <a href="http://t.me/spcgbot" rel="author noopener" target="_blank">For Collaboration</a></span>
+  <span class="sig-heart">✦</span>
+</div>
+
+<script>
+(function(){
+  const STORAGE_KEY='seo-audit-olympia-v2-2026-07-03';
+  const total=22;
+  const fillEl=document.getElementById('progress-fill');
+  const doneEl=document.getElementById('progress-done');
+  const rerunPanel=document.getElementById('rerun-panel');
+
+  function updateProgress(){
+    const done=document.querySelectorAll('.finding-check:checked').length;
+    doneEl.textContent=done;
+    fillEl.style.width=((done/total)*100)+'%';
+    if(done===total){rerunPanel.classList.add('visible');rerunPanel.setAttribute('aria-hidden','false');}
+    else{rerunPanel.classList.remove('visible');rerunPanel.setAttribute('aria-hidden','true');}
+  }
+
+  function saveState(){
+    const state={};
+    document.querySelectorAll('.finding-check').forEach(cb=>{state[cb.dataset.findingId]=cb.checked;});
+    try{localStorage.setItem(STORAGE_KEY,JSON.stringify(state));}catch(e){}
+  }
+
+  function loadState(){
+    try{
+      const raw=localStorage.getItem(STORAGE_KEY);
+      if(!raw)return;
+      const state=JSON.parse(raw);
+      document.querySelectorAll('.finding-check').forEach(cb=>{
+        if(state[cb.dataset.findingId]){cb.checked=true;cb.closest('.finding-card').classList.add('resolved');}
+      });
+    }catch(e){}
+  }
+
+  document.querySelectorAll('.finding-check').forEach(cb=>{
+    cb.addEventListener('change',function(){
+      this.closest('.finding-card').classList.toggle('resolved',this.checked);
+      saveState();updateProgress();
+    });
+  });
+
+  function resetAll(){
+    document.querySelectorAll('.finding-check').forEach(cb=>{cb.checked=false;cb.closest('.finding-card').classList.remove('resolved');});
+    try{localStorage.removeItem(STORAGE_KEY);}catch(e){}
+    updateProgress();
+  }
+  const resetBtn=document.getElementById('progress-reset');
+  const rerunResetBtn=document.getElementById('rerun-reset');
+  if(resetBtn)resetBtn.addEventListener('click',resetAll);
+  if(rerunResetBtn)rerunResetBtn.addEventListener('click',resetAll);
+
+  document.querySelectorAll('.copy-btn').forEach(btn=>{
+    btn.addEventListener('click',function(){
+      const pre=this.nextElementSibling;
+      try{
+        navigator.clipboard.writeText(pre.innerText).then(()=>{
+          this.classList.add('copied');this.textContent='Copied!';
+          setTimeout(()=>{this.classList.remove('copied');this.textContent='Copy';},2000);
+        });
+      }catch(e){}
+    });
+  });
+
+  loadState();updateProgress();
+})();
+</script>
+</body>
+</html>
